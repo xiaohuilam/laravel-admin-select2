@@ -79,9 +79,7 @@ SCRIPT;
         $query = $callback($keyword);
         $result = $query->paginate();
 
-        // 因为laravel-admin局限，目前没有更好的方案
-        echo json_encode(['success' => true, 'data' => [ 'list' => $result, ], ]);
-        exit;
+        abort(response()->json(['success' => true, 'data' => [ 'list' => $result, ], ]));
     }
 
     /**
@@ -98,8 +96,6 @@ SCRIPT;
 
         $text = $callback($value);
 
-        // 因为laravel-admin局限，目前没有更好的方案
-        echo json_encode(['success' => true, 'data' => ['text' => $text, ], ]);
-        exit;
+        abort(response()->json(['success' => true, 'data' => ['text' => $text, ], ]));
     }
 }
