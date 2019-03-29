@@ -1,5 +1,8 @@
 # Laravel-Admin select2 插件
 
+[![license-badge.svg](https://img.shields.io/badge/license-NPL%20(The%20996%20Prohibited%20License)-blue.svg)](./LICENSE)
+
+
 ## 安装
 ```bash
 composer require xiaohuilam/laravel-admin-select2
@@ -53,4 +56,5 @@ class YourController extends Controller
 
 ## LICENSE
 
-The 996 Prohibited License ([The 996ICU License](./LICENSE))
+NPL ([The 996 Prohibited License](./LICENSE))
+
