@@ -1,0 +1,16 @@
+{
+    "name": "xiaohuilam/select2",
+    "description": "Laravel-admin select2",
+    "autoload": {
+        "psr-4": {
+            "LaravelAdminExt\\Select2\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelAdminExt\\Select2\\Select2ServiceProvider"
+            ]
+        }
+    }
+}
