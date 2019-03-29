@@ -24,6 +24,7 @@ class Select2Field extends Field
             theme: "bootstrap",
             minimumInputLength: 1,
             query: function (query) {
+                var data = {results: []};
                 $.ajax({
                     url: location.href,
                     type: 'GET',
@@ -33,11 +34,12 @@ class Select2Field extends Field
                     },
                     dataType: 'json',
                     success: function (json) {
-                        var data = {results: []};
-
                         data.results = json.data.list.data;
                         query.callback(data);
                     },
+                    error: function () {
+                        query.callback(data);
+                    }
                 });
             },
             initSelection: function (element, callback) {
