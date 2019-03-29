@@ -28,7 +28,7 @@ class YourController extends Controller
 
         $form->select2('user_id', 'User id')->match(function ($keyword) {
             /**
-             * @var \Illuminate\Database\Eloquent\Query $query 查询对象
+             * @var \Illuminate\Database\Eloquent\Query $query 查询对象，切记如果数据模型没有text或id属性，记得as成text和id!
              */
             $query = User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
             return $query;
