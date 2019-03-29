@@ -2,24 +2,13 @@
 namespace LaravelAdminExt\Select2;
 
 use Encore\Admin\Form\Field;
+use LaravelAdminExt\Select2\Traits\Select2Trait;
 
 class Select2Field extends Field
 {
+    use Select2Trait;
 
     public $view = 'laravel-admin-select2::select2';
-
-    /**
-     * 是否为搜索请求，若是，返回搜索的关键词
-     *
-     * @return boolean|string
-     */
-    protected function isSeaching()
-    {
-        if (request()->input('search') == $this->column) {
-            return request()->input('keyword');
-        }
-        return false;
-    }
 
     /**
      * {@inheritDoc}
@@ -36,6 +25,7 @@ class Select2Field extends Field
             minimumInputLength: 1,
             query: function (query) {
                 $.ajax({
+                    url: location.href,
                     type: 'GET',
                     data: {
                         search: '{$column}',
@@ -49,6 +39,22 @@ class Select2Field extends Field
                         query.callback(data);
                     },
                 });
+            },
+            initSelection: function (element, callback) {
+                var value = $('#{$name}-select2').val();
+                if (!value.trim().length) return;
+                $.ajax({
+                    url: location.href,
+                    type: 'GET',
+                    data: {
+                        retrive: '{$column}',
+                        value: value,
+                    },
+                    dataType: 'json',
+                    success: function (json) {
+                        callback({id: value, text: json.data.text });
+                    },
+                });
             }
         });
 SCRIPT;
@@ -59,12 +65,12 @@ SCRIPT;
      * 注册搜索逻辑
      *
      * @param Closure $callback
-     * @return \Illuminate\Http\JsonResponse|null
+     * @return \Illuminate\Http\JsonResponse|self
      */
     public function match($callback)
     {
         if (false === ($keyword = $this->isSeaching())) {
-            return;
+            return $this;
         }
 
         /**
@@ -77,5 +83,23 @@ SCRIPT;
         echo json_encode(['success' => true, 'data' => [ 'list' => $result, ], ]);
         exit;
     }
-}
 
+    /**
+     * 显示值逻辑
+     *
+     * @param Closure $callback
+     * @return string|self
+     */
+    public function text($callback)
+    {
+        if (false === ($value = $this->isTextRetriving())) {
+            return $this;
+        }
+
+        $text = $callback($value);
+
+        // 因为laravel-admin局限，目前没有更好的方案
+        echo json_encode(['success' => true, 'data' => ['text' => $text, ], ]);
+        exit;
+    }
+}

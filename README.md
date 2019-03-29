@@ -33,7 +33,11 @@ class YourController extends Controller
         $form = new Form(new UserResource);
 
         $form->select2('user_id', 'User id')->match(function ($keyword) {
+            // 需要返回一个 \Illuminate\Database\Eloquent\Query 对象
             return User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
+        })->text(function ($id) {
+            // 需要返回一个字符串，用于将value显示出来
+            return data_get(User::find($id), 'name');
         });
         $form->text('title', 'Title');
         $form->textarea('content', 'Content');
