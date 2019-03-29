@@ -1,5 +1,5 @@
 {
-    "name": "xiaohuilam/select2",
+    "name": "xiaohuilam/laravel-admin-select2",
     "description": "Laravel-admin select2",
     "autoload": {
         "psr-4": {
