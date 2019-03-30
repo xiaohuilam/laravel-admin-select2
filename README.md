@@ -2,6 +2,9 @@
 
 [![license-badge.svg](https://img.shields.io/badge/license-NPL%20(The%20996%20Prohibited%20License)-blue.svg)](./LICENSE)
 
+一款异步的 select2 针对 [laravel-admin](http://github.com/z-song/laravel-admin/) 插件，适用于不定条数的模型中选择框场景，如单选、多选（开发中，见[multiple-select2](https://github.com/xiaohuilam/laravel-admin-select2/tree/multiple-select2)分支）。
+
+在表单中尝试检索时，才会 ajax 去模型中查询选项，设计极度精简。
 
 ## 安装
 ```bash
