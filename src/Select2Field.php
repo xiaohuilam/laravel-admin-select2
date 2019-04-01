@@ -3,6 +3,8 @@ namespace LaravelAdminExt\Select2;
 
 use Encore\Admin\Form\Field;
 use LaravelAdminExt\Select2\Traits\Select2Trait;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Select2Field extends Field
 {
@@ -22,25 +24,22 @@ class Select2Field extends Field
 
         $('#{$name}-select2').select2({
             theme: "bootstrap",
-            minimumInputLength: 1,
-            query: function (query) {
-                var data = {results: []};
-                $.ajax({
-                    url: location.href,
-                    type: 'GET',
-                    data: {
+            minimumInputLength: 0,
+            ajax: {
+                url: location.href,
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term, page) {
+                    return {
                         search: '{$column}',
-                        keyword: query.term,
-                    },
-                    dataType: 'json',
-                    success: function (json) {
-                        data.results = json.data.list.data;
-                        query.callback(data);
-                    },
-                    error: function () {
-                        query.callback(data);
-                    }
-                });
+                        keyword: term,
+                        id: $('#{$name}-select2').val(),
+                        page: page,
+                    };
+                },
+                results: function (data, page) {
+                    return { results: data.data.list.data, more: data.data.list.next_page_url != null };
+                },
             },
             initSelection: function (element, callback) {
                 var value = $('#{$name}-select2').val();
@@ -71,14 +70,25 @@ SCRIPT;
      */
     public function match($callback)
     {
-        if (false === ($keyword = $this->isSeaching())) {
+        if (false === $this->isSeaching()) {
             return $this;
         }
 
+        $keyword = request()->input('keyword');
         /**
          * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
          */
         $query = $callback($keyword);
+        if (!$keyword) {
+            $query->when(!strlen($keyword), function ($query) {
+                $id = request()->input('id');
+
+                /**
+                 * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
+                 */
+                $query = $query->where($this->form->model()->getKeyName(), '>', $id - 5);
+            });
+        }
         $result = $query->paginate();
 
         abort(response()->json(['success' => true, 'data' => [ 'list' => $result, ], ]));

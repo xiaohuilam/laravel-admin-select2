@@ -15,7 +15,7 @@ trait Select2Trait
          */
         $self = $this;
         if (request()->input('search') == $self->column) {
-            return request()->input('keyword');
+            return true;
         }
         return false;
     }
