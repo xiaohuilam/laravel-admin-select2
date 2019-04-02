@@ -30,7 +30,6 @@ class Select2Field extends Select
                 delay: 250,
                 cache: true,
                 data: function (params) {
-                    console.log(params);
                     return {
                         search: '{$column}',
                         keyword: params.term,
