@@ -1,12 +1,12 @@
 <?php
 namespace LaravelAdminExt\Select2;
 
-use Encore\Admin\Form\Field;
+use Encore\Admin\Form\Field\Select;
 use LaravelAdminExt\Select2\Traits\Select2Trait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-class Select2Field extends Field
+class Select2Field extends Select
 {
     use Select2Trait;
 
@@ -23,22 +23,28 @@ class Select2Field extends Field
         $this->script = <<<SCRIPT
 
         $('#{$name}-select2').select2({
-            theme: "bootstrap",
             minimumInputLength: 0,
             ajax: {
                 url: location.href,
                 dataType: 'json',
-                quietMillis: 250,
-                data: function (term, page) {
+                delay: 250,
+                cache: true,
+                data: function (params) {
+                    console.log(params);
                     return {
                         search: '{$column}',
-                        keyword: term,
+                        keyword: params.term,
                         id: $('#{$name}-select2').val(),
-                        page: page,
+                        page: params.page,
                     };
                 },
-                results: function (data, page) {
-                    return { results: data.data.list.data, more: data.data.list.next_page_url != null };
+                processResults: function (data, params) {
+                    return {
+                        results: data.data.list.data,
+                        pagination: {
+                            more: data.data.list.next_page_url != null
+                        }
+                    };
                 },
             },
             initSelection: function (element, callback) {

@@ -5,7 +5,9 @@
         @include('admin::form.error')
 
         <div class="controls" id="select2-wrapper-{{$name}}">
-            <input name="{{$name}}" id="{{$name}}-select2" class="form-control input-sm input-block" value="{{ old($column, $value) }}" data-value="{{ old($column, $value) }}"/>
+            <select name="{{$name}}" id="{{$name}}-select2" class="form-control input-sm input-block" data-value="{{ old($column, $value) }}">
+                <option value="{{ old($column, $value) }}" selected>{{ old($column, $value) }}</option>
+            </select>
         </div>
         @include('admin::form.help-block')
     </div>
