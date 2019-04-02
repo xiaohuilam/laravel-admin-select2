@@ -1,20 +1,46 @@
-NPL, The 996 Prohibited License
-Copyright © 2019 <Xiaohui Lam>
+Copyright (c) <2019> <Xiaohui Lam>
 
-996ICU License 是一个关于 {MIT} 的扩展协议.
-此协议扩展了 {MIT}, {MIT} 将在本协议文本末尾声明.
+Anti 996 License Version 1.0 (Draft)
 
-要求得到授权的个人履行以下义务:
+Permission is hereby granted to any individual or legal entity
+obtaining a copy of this licensed work (including the source code,
+documentation and/or related items, hereinafter collectively referred
+to as the "licensed work"), free of charge, to deal with the licensed
+work for any purpose, including without limitation, the rights to use,
+reproduce, modify, prepare derivative works of, distribute, publish 
+and sublicense the licensed work, subject to the following conditions:
 
-1. 将此授权文件包含在其任何副本以及软件的重要部分中.
+1. The individual or the legal entity must conspicuously display,
+without modification, this License and the notice on each redistributed 
+or derivative copy of the Licensed Work.
 
-要求得到授权的组织履行以下义务:
+2. The individual or the legal entity must strictly comply with all
+applicable laws, regulations, rules and standards of the jurisdiction
+relating to labor and employment where the individual is physically
+located or where the individual was born or naturalized; or where the
+legal entity is registered or is operating (whichever is stricter). In
+case that the jurisdiction has no such laws, regulations, rules and
+standards or its laws, regulations, rules and standards are
+unenforceable, the individual or the legal entity are required to
+comply with Core International Labor Standards.
 
-1. 将此授权文件包含在其任何副本以及软件的重要部分中.
-2. 不以任何形式或手段强迫其雇佣员工或临时劳动者进行超过法定最长劳动时间的劳动, 包括但不限于: 命令, 威胁, 暗示等.
-3. 不以任何形式报复不参与超过法定最长劳动时间的劳动的雇佣员工或临时劳动者, 包括但不限于: 辱骂等精神攻击, 殴打等人身伤害以及非法开除等.
-4. 此组织不在协议规定的[黑名单](https://github.com/996icu/996.ICU/blob/master/blacklist/blacklist.md#996%E6%88%96%E5%85%B6%E4%BB%96%E5%89%A5%E5%89%8A%E5%88%B6%E5%BA%A6%E5%85%AC%E5%8F%B8%E9%BB%91%E5%90%8D%E5%8D%95)中.
+3. The individual or the legal entity shall not induce or force its
+employee(s), whether full-time or part-time, or its independent
+contractor(s), in any methods, to agree in oral or written form, to
+directly or indirectly restrict, weaken or relinquish his or her
+rights or remedies under such laws, regulations, rules and standards
+relating to labor and employment as mentioned above, no matter whether
+such written or oral agreement are enforceable under the laws of the
+said jurisdiction, nor shall such individual or the legal entity
+limit, in any methods, the rights of its employee(s) or independent
+contractor(s) from reporting or complaining to the copyright holder or
+relevant authorities monitoring the compliance of the license about
+its violation(s) of the said license.
 
-如果获得授权的个人或组织未能履行以上义务任意一条, 则授权将被收回.
-
-此协议未定义的行为, 按 {MIT} 协议处理. {MIT} 与本协议冲突的部分, 按本协议处理.
+THE LICENSED WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN ANY WAY CONNECTION WITH THE
+LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE LICENSED WORK.

@@ -1,6 +1,6 @@
 # Laravel-Admin select2 插件
 
-[![license-badge.svg](https://img.shields.io/badge/license-NPL%20(The%20996%20Prohibited%20License)-blue.svg)](./LICENSE)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 一款异步的 select2 针对 [laravel-admin](http://github.com/z-song/laravel-admin/) 插件，适用于不定条数的模型中选择框场景，如单选、多选（开发中，见[multiple-select2](https://github.com/xiaohuilam/laravel-admin-select2/tree/multiple-select2)分支）。
 
@@ -34,7 +34,7 @@ class YourController extends Controller
 
         $form->select2('user_id', 'User id')->match(function ($keyword) {
             /**
-             * @var \Illuminate\Database\Eloquent\Builder $query 查询对象，切记如果数据模型没有text或id属性，记得as成text和id!
+             * @var \Illuminate\Database\Eloquent\Builder $query 查询对象，**切记如果数据模型没有text或id属性，记得as成text和id!**
              */
             $query = User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
             return $query;
@@ -55,9 +55,9 @@ class YourController extends Controller
 
 **截图**
 
-![screenshot.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/oxCsSnT5Yjc12ap5YTj.png)
+![screenshot.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/4Sm9PDd6kScD9yS0wca.png)
 
 ## LICENSE
 
-NPL ([The 996 Prohibited License](./LICENSE))
+[Ant 996](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
