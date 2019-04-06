@@ -1,6 +1,5 @@
 {
     "name": "xiaohuilam/laravel-admin-select2",
-    "license": "NPL(The 996 Prohibited License)",
     "description": "Laravel-admin select2",
     "require": {
         "encore/laravel-admin": "~1.6.0"
