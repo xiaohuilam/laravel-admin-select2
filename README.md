@@ -40,9 +40,6 @@ class YourController extends Controller
             $query = User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
             return $query;
         })->text(function ($id) {
-            /**
-             * @var string $text 一个字符串，用于将value显示出来
-             */
             return User::where(app(User::class)->getKeyName(), $id)->pluck('name', 'id');
         });
 
