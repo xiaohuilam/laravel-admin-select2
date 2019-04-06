@@ -3,7 +3,6 @@ namespace LaravelAdminExt\Select2;
 
 use Encore\Admin\Admin;
 use Illuminate\Support\ServiceProvider;
-use Encore\Admin\Form;
 
 class Select2ServiceProvider extends ServiceProvider
 {
@@ -21,7 +20,7 @@ class Select2ServiceProvider extends ServiceProvider
         }
 
         Admin::booting(function (){
-            Form::extend('select2', Select2Field::class);
+            Form::registerBuiltinFields();
         });
     }
 }

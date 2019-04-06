@@ -3,12 +3,14 @@ namespace LaravelAdminExt\Select2;
 
 use Encore\Admin\Form as BaseForm;
 
+/**
+ * @method Form\Field\Select         select($column, $label = '')
+ * @method Form\Field\MultipleSelect multipleSelect($column, $label = '')
+ */
 class Form extends BaseForm
 {
     /**
-     * Register builtin fields.
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public static function registerBuiltinFields()
     {

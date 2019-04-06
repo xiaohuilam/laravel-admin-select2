@@ -11,7 +11,7 @@ trait Select2Trait
     protected function isSeaching()
     {
         /**
-         * @var \LaravelAdminExt\Select2\Select2Field $self
+         * @var \LaravelAdminExt\Select2\Form\Field\Select|\LaravelAdminExt\Select2\Form\Field\MultipleSelect $self
          */
         $self = $this;
         if (request()->input('search') == $self->column) {
@@ -28,7 +28,7 @@ trait Select2Trait
     protected function isTextRetriving()
     {
         /**
-         * @var \LaravelAdminExt\Select2\Select2Field $self
+         * @var \LaravelAdminExt\Select2\Form\Field\Select|\LaravelAdminExt\Select2\Form\Field\MultipleSelect $self
          */
         $self = $this;
         if (request()->input('retrive') == $self->column) {
