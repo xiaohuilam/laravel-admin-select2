@@ -118,7 +118,9 @@ $("{$this->getElementClassSelector()}").select2({
 
   initSelection: function (element, callback) {
     var value = $("{$this->getElementClassSelector()}").attr('data-value');
-    if (!value.trim().length) return;
+    if (!value.trim().length) {
+        return callback([]);
+    };
     $.ajax({
       url: location.href,
       type: 'GET',
