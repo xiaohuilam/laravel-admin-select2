@@ -9,6 +9,11 @@
             "LaravelAdminExt\\Select2\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "LaravelAdminExt\\Select2\\Test\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
