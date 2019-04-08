@@ -20,15 +20,13 @@ composer require xiaohuilam/laravel-admin-select2
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
-//use Encore\Admin\Form; // 废弃此行
-use LaravelAdminExt\Select2\Form; // 启用此行
+use Encore\Admin\Form;
 use App\Models\User;
 use App\Models\UserResource;
 use Illuminate\Support\Facades\DB;
 
 class YourController extends Controller
 {
-    // ...
     protected function form()
     {
         $form = new Form(new UserResource);
