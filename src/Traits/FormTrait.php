@@ -111,7 +111,7 @@ $("{$this->getElementClassSelector()}").select2({
       return {
         results: $.map(data.data, function (d) {
             d.id = d.$idField;
-            d.text = d.$textField.replace(/\>/g, '&amp;gt;').replace(/\</g, '&amp;lt;');
+            d.text = d.$textField.replace(/\>/g, '&gt;').replace(/\</g, '&lt;');
             return d;
         }),
         pagination: {
@@ -161,7 +161,7 @@ $("{$this->getElementClassSelector()}").select2({
             option = $('<option/>');
             option.val(id);
             option.attr('selected', 'selected');
-            option.text(text.replace(/\>/g, '&amp;gt;').replace(/\</g, '&amp;lt;'));
+            option.text(text.replace(/\>/g, '&gt;').replace(/\</g, '&lt;'));
             $("{$this->getElementClassSelector()}").append(option);
         }
         callback(init);

@@ -28,6 +28,8 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Form;
 use App\Models\User;
+use App\Models\Answer;
+use App\Models\Comment;
 use App\Models\UserResource;
 use Illuminate\Support\Facades\DB;
 
@@ -57,6 +59,25 @@ class YourController extends Controller
                 return Tag::whereIn(app(Tag::class)->getKeyName(), $id_list)->pluck('name', 'id');
             }
         );
+    
+        $form->morphSelect('commentable')->type([
+            Comment::class => '评论',
+            Answer::class => '答案',
+        ])->match(function ($keyword, $class) {
+            /**
+             * @var \Illuminate\Database\Eloquent\Model $query
+             */
+            $query = $class;
+            return $query::where('content', 'LIKE', DB::raw('"%' . $keyword . '%"'))
+                ->select([DB::raw('content AS text'), 'id']);
+        })->text(function ($id, $class) {
+            /**
+             * @var \Illuminate\Database\Eloquent\Model $query
+             */
+            $query = $class;
+            return $query::withTrashed()->where('id', $id)
+                ->pluck('content', 'id');
+        });
 
 
         $form->text('title', 'Title');
