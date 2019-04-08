@@ -77,6 +77,7 @@ trait FormTrait
 
         $configs = json_encode($configs);
         $configs = substr($configs, 1, strlen($configs) - 2);
+        $ajax_appends = json_encode($this->getAppendAjaxParam());
 
         $this->script = <<<EOT
 
@@ -91,6 +92,15 @@ $("{$this->getElementClassSelector()}").select2({
         page: params.page,
         search: '{$column}',
       };
+
+      var extra = {$ajax_appends};
+      if ('undefined' == typeof extra.length) {
+        var key;
+        for (key in extra) {
+            query[key] = eval(extra[key]);
+        }
+      }
+
       if (!query.keyword && {$this->withId}) {
         query.value = $("{$this->getElementClassSelector()}").attr('data-value');
       }
@@ -100,9 +110,9 @@ $("{$this->getElementClassSelector()}").select2({
       params.page = params.page || 1;
       return {
         results: $.map(data.data, function (d) {
-          d.id = d.$idField;
-          d.text = d.$textField;
-          return d;
+            d.id = d.$idField;
+            d.text = d.$textField.replace(/\>/g, '&amp;gt;').replace(/\</g, '&amp;lt;');
+            return d;
         }),
         pagination: {
           more: data.next_page_url
@@ -121,13 +131,24 @@ $("{$this->getElementClassSelector()}").select2({
     if (!value.trim().length) {
         return callback([]);
     };
+
+    var query = {
+        value: value,
+        retrive: '{$column}',
+    };
+
+    var extra = {$ajax_appends};
+    if ('undefined' == typeof extra.length) {
+        var key;
+        for (key in extra) {
+            query[key] = eval(extra[key]);
+        }
+    }
+
     $.ajax({
       url: location.href,
       type: 'GET',
-      data: {
-        value: value,
-        retrive: '{$column}',
-      },
+      data: query,
       dataType: 'json',
       success: function (json) {
         var id, text, init = [], option;
@@ -140,7 +161,7 @@ $("{$this->getElementClassSelector()}").select2({
             option = $('<option/>');
             option.val(id);
             option.attr('selected', 'selected');
-            option.text(text);
+            option.text(text.replace(/\>/g, '&amp;gt;').replace(/\</g, '&amp;lt;'));
             $("{$this->getElementClassSelector()}").append(option);
         }
         callback(init);
