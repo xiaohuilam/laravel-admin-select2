@@ -10,6 +10,7 @@
 [![issues-open.svg](https://img.shields.io/github/issues/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://github.com/xiaohuilam/laravel-admin-select2/issues)
 [![last-commit.svg](https://img.shields.io/github/last-commit/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://github.com/xiaohuilam/laravel-admin-select2/commits/)
 [![contributors.svg](https://img.shields.io/github/contributors/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://github.com/xiaohuilam/laravel-admin-select2/graphs/contributors)
+[![install-count.svg](https://img.shields.io/packagist/dt/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://packagist.org/packages/xiaohuilam/laravel-admin-select2)
 [![license.svg](https://img.shields.io/github/license/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](LICENSE)
 
 ## 安装
@@ -90,7 +91,14 @@ class YourController extends Controller
 
 **截图**
 
-![screenshot.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/G5l12nD7D73p56dvXBm.png)
+![screenshot.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/G5l12nD7D73p56dvXBm.png?x-oss-process=image/resize,l_500)
+
+
+## 赞助
+
+**微信**
+
+![donate.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/2GDNl84F6HW4PRGslxg.png?x-oss-process=image/resize,l_300)
 
 ## LICENSE
 
