@@ -28,7 +28,16 @@ class MorphSelect extends Field
      */
     public function type($type = [])
     {
-        $this->type = collect($type);
+        $model = $this->form->model();
+
+        /**
+         * @var \Illuminate\Database\Eloquent\Relations\MorphTo $relation
+         */
+        if (!method_exists($model, $this->column) || !($relation = $model->{$this->column}()) || !$relation instanceof Relation) {
+            abort(412, 'Sorry, there\'s no relation named ' . $this->column);
+        }
+
+        $this->form->select($relation->getMorphType())->options($type);
     }
 
     public function match($closure)
@@ -56,7 +65,6 @@ class MorphSelect extends Field
             abort(412, 'Sorry, there\'s no relation named ' . $this->column);
         }
 
-        $form->select($relation->getMorphType())->options($type);
         $form->select($relation->getForeignKeyName())->match(function ($keyword) use ($type) {
             $morph_type = request()->input('morph_type');
             if (!$type->contains($morph_type)) {
