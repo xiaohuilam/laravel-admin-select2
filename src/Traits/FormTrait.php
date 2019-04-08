@@ -148,6 +148,23 @@ $("{$this->getElementClassSelector()}").select2({
     });
   }
 });
+$("{$this->getElementClassSelector()}").on('select2:select', function (evt) {
+    if ($(evt.currentTarget).prop('multiple')) {
+        return;
+    }
+    option = $('<option/>');
+    option.val(evt.params.data.id);
+    option.text(evt.params.data.text);
+    option.attr('selected', 'selected');
+    $(evt.currentTarget).append(option);
+});
+$("{$this->getElementClassSelector()}").on('select2:unselect', function (evt) {
+    if ($(evt.currentTarget).prop('multiple')) {
+        return;
+    }
+
+    $(evt.currentTarget).find('option[value="' + evt.params.data.id + '"]').removeAttr('selected');
+});
 
 EOT;
         return $this;
