@@ -1,6 +1,8 @@
 {
     "name": "xiaohuilam/laravel-admin-select2",
     "description": "Laravel-admin select2",
+    "license": "MIT",
+    "authors": [{"name": "Xiaohui Lam", "email": "xiaohui.lam@aliyun.com"}],
     "require": {
         "encore/laravel-admin": "~1.6.0"
     },
