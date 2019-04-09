@@ -1,9 +1,9 @@
 <?php
+
 namespace LaravelAdminExt\Select2\Form\Field;
 
 use Encore\Admin\Form\Field;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Encore\Admin\Form;
 
 class MorphSelect extends Field
 {
@@ -33,13 +33,14 @@ class MorphSelect extends Field
         $model = $this->form->model();
 
         /**
-         * @var \Illuminate\Database\Eloquent\Relations\MorphTo $relation
+         * @var \Illuminate\Database\Eloquent\Relations\MorphTo
          */
         if (!method_exists($model, $this->column) || !($relation = $model->{$this->column}()) || !$relation instanceof Relation) {
-            abort(412, 'Sorry, there\'s no relation named ' . $this->column);
+            abort(412, 'Sorry, there\'s no relation named '.$this->column);
         }
 
         $this->form->select($relation->getMorphType(), studly_case($this->column()))->options($type)->setView('laravel-admin-select2::morph.type');
+
         return $this;
     }
 
@@ -47,6 +48,7 @@ class MorphSelect extends Field
     {
         $this->match = $closure;
         $this->__show();
+
         return $this;
     }
 
@@ -54,6 +56,7 @@ class MorphSelect extends Field
     {
         $this->text = $closure;
         $this->__show();
+
         return $this;
     }
 
@@ -66,12 +69,12 @@ class MorphSelect extends Field
         $model = $this->form->model();
 
         /**
-         * @var \Illuminate\Database\Eloquent\Relations\MorphTo $relation
+         * @var \Illuminate\Database\Eloquent\Relations\MorphTo
          */
         if (!method_exists($model, $this->column) || !($relation = $model->{$this->column}()) || !$relation instanceof Relation) {
-            abort(412, 'Sorry, there\'s no relation named ' . $this->column);
+            abort(412, 'Sorry, there\'s no relation named '.$this->column);
         }
-        $func =<<<JAVASCRIPT
+        $func = <<<JAVASCRIPT
             $('.{$relation->getMorphType()}').val()
 JAVASCRIPT;
 
@@ -80,25 +83,27 @@ JAVASCRIPT;
         ->match(function ($keyword) use ($type) {
             $morph_type = request()->input('morph_type');
             if (!collect($type)->keys()->contains($morph_type)) {
-                abort(412, 'Sorry, ' . $morph_type . ' is not allowed!');
+                abort(412, 'Sorry, '.$morph_type.' is not allowed!');
             }
 
             $closure = $this->match;
             if (!is_callable($closure)) {
                 return;
             }
+
             return $closure($keyword, $morph_type);
         })
         ->text(function ($value) use ($type) {
             $morph_type = request()->input('morph_type');
             if (!collect($type)->keys()->contains($morph_type)) {
-                abort(412, 'Sorry, ' . $morph_type . ' is not allowed!');
+                abort(412, 'Sorry, '.$morph_type.' is not allowed!');
             }
 
             $closure = $this->text;
             if (!is_callable($closure)) {
                 return;
             }
+
             return $closure($value, $morph_type);
         })->setView('laravel-admin-select2::morph.id');
     }
