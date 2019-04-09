@@ -39,7 +39,7 @@ class MorphSelect extends Field
             abort(412, 'Sorry, there\'s no relation named ' . $this->column);
         }
 
-        $this->form->select($relation->getMorphType())->options($type);
+        $this->form->select($relation->getMorphType(), studly_case($this->column()))->options($type)->setView('laravel-admin-select2::morph.type');
         return $this;
     }
 
@@ -100,6 +100,6 @@ JAVASCRIPT;
                 return;
             }
             return $closure($value, $morph_type);
-        });
+        })->setView('laravel-admin-select2::morph.id');
     }
 }

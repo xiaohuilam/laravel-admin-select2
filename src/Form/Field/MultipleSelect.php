@@ -9,16 +9,7 @@ class MultipleSelect extends BaseMultipleSelect
 {
     protected $withId = 0;
     protected $ajax_appends = [];
+    protected $view = 'laravel-admin-select2::multiple_select';
 
     use Select2Trait, FormTrait;
-
-    /**
-     * Get view of this field.
-     *
-     * @return string
-     */
-    public function getView()
-    {
-        return 'laravel-admin-select2::multipleselect';
-    }
 }
