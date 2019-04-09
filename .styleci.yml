@@ -1,7 +1,5 @@
 preset: PSR2
 risky: true
-disabled:
-  - phpdoc_var_without_name
 finder:
   exclude:
     - vendor
