@@ -66,22 +66,7 @@ class YourController extends Controller
         $form->morphSelect('commentable')->type([
             Comment::class => '评论',
             Answer::class => '答案',
-        ])->match(function ($keyword, $class) {
-            /**
-             * @var \Illuminate\Database\Eloquent\Model $query
-             */
-            $query = $class;
-            return $query::where('content', 'LIKE', DB::raw('"%' . $keyword . '%"'))
-                ->select([DB::raw('content AS text'), 'id']);
-        })->text(function ($id, $class) {
-            /**
-             * @var \Illuminate\Database\Eloquent\Model $query
-             */
-            $query = $class;
-            return $query::withTrashed()->where('id', $id)
-                ->pluck('content', 'id');
-        });
-
+        ]);
 
         $form->text('title', 'Title');
         $form->textarea('content', 'Content');
