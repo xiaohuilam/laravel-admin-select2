@@ -1,25 +1,27 @@
 <?php
+
 namespace LaravelAdminExt\Select2\Traits;
 
 trait FormTrait
 {
-
     /**
-     * 注册搜索逻辑
+     * 注册搜索逻辑.
      *
      * @param Closure $callback
+     *
      * @return \Illuminate\Http\JsonResponse|self
      */
     public function match($callback)
     {
         if (false === $this->isSeaching()) {
-            $this->ajax(request()->url() . '?&' . http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
+            $this->ajax(request()->url().'?&'.http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
+
             return $this;
         }
 
         $keyword = request()->input('keyword');
         /**
-         * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
+         * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
          */
         $query = $callback($keyword);
         if (!$keyword) {
@@ -27,7 +29,7 @@ trait FormTrait
                 $value = request()->input('value');
 
                 /**
-                 * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
+                 * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
                  */
                 $query = $query->where($this->form->model()->getKeyName(), '>', $value - 5);
             });
@@ -38,9 +40,10 @@ trait FormTrait
     }
 
     /**
-     * 显示值逻辑
+     * 显示值逻辑.
      *
      * @param Closure $callback
+     *
      * @return string|self
      */
     public function text($callback)
@@ -167,6 +170,7 @@ $("{$this->getElementClassSelector()}").on('select2:unselect', function (evt) {
 });
 
 EOT;
+
         return $this;
     }
 }
