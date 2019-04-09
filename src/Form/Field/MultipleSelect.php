@@ -8,6 +8,8 @@ use LaravelAdminExt\Select2\Traits\FormTrait;
 class MultipleSelect extends BaseMultipleSelect
 {
     protected $withId = 0;
+    protected $ajax_appends = [];
+
     use Select2Trait, FormTrait;
 
     /**
