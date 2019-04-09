@@ -1,12 +1,13 @@
 <?php
+
 namespace LaravelAdminExt\Select2;
 
 use Encore\Admin\Admin;
-use Illuminate\Support\ServiceProvider;
-use LaravelAdminExt\Select2\Form\Field\Select;
-use LaravelAdminExt\Select2\Form\Field\MultipleSelect;
-use LaravelAdminExt\Select2\Form\Field\MorphSelect;
 use Encore\Admin\Form;
+use Illuminate\Support\ServiceProvider;
+use LaravelAdminExt\Select2\Form\Field\MorphSelect;
+use LaravelAdminExt\Select2\Form\Field\MultipleSelect;
+use LaravelAdminExt\Select2\Form\Field\Select;
 
 class Select2ServiceProvider extends ServiceProvider
 {
@@ -23,9 +24,9 @@ class Select2ServiceProvider extends ServiceProvider
             $this->loadViewsFrom($views, 'laravel-admin-select2');
         }
 
-        Admin::booting(function (){
+        Admin::booting(function () {
             Form::registerBuiltinFields();
-            Form::forget(['select', 'multipleSelect',]);
+            Form::forget(['select', 'multipleSelect']);
             Form::extend('select', Select::class);
             Form::extend('multipleSelect', MultipleSelect::class);
             Form::extend('morphSelect', MorphSelect::class);
