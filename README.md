@@ -1,5 +1,7 @@
 # Laravel-Admin select2 插件
 
+If you are non-Chinese user, there is [Document in English](#laravel-admin-select2-extension).
+
 一款异步的 select2 针对 [laravel-admin](http://github.com/z-song/laravel-admin/) 插件，适用于不定条数的模型中选择框场景，包括单选、多选。
 
 在表单中尝试检索时，才会 ajax 去模型中查询选项，设计极度精简。
@@ -99,6 +101,8 @@ class YourController extends Controller
 ---
 
 # Laravel-Admin select2 extension
+
+中文用户请阅读 [中文文档](#laravel-admin-select2-插件).
 
 A asynchronous extension to implements select2 to [laravel-admin](http://github.com/z-song/laravel-admin/), including single select/multiple select/morph select.
 
