@@ -126,7 +126,7 @@ composer require xiaohuilam/laravel-admin-select2
 
 ## Usage
 
-**代码**
+**code**
 ```php
 <?php
 
@@ -171,8 +171,8 @@ class YourController extends Controller
 
         //morph select
         $form->morphSelect('commentable')->type([
-            Comment::class => '评论',
-            Answer::class => '答案',
+            Comment::class => 'Comment',
+            Answer::class => 'Answer',
         ]);
 
         $form->text('title', 'Title');
