@@ -6,9 +6,16 @@ use Encore\Admin\Layout\Content;
 use Illuminate\Support\Facades\DB;
 use LaravelAdminExt\Select2\Test\Models\Comment;
 use LaravelAdminExt\Select2\Test\Models\Answer;
+use Encore\Admin\Auth\Database\Administrator;
 
-class MatchApiTest extends TestCase
+class ZMatchApiTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->be(Administrator::first(), 'admin');
+    }
+
     /**
      * 测试表单
      *
@@ -43,11 +50,11 @@ class MatchApiTest extends TestCase
         $comment->commentable()->associate($answer);
         $comment->save();
 
-        $url = '/admin/test/' . $id;
+        $url = '/test/' . $id . '/edit';
         $response = $this->get($url)->response;
 
-        $res = $response->getOriginalContent();
-        echo $res;
+        //$res = $response->getContent();
+        //echo $res;
         $this->assertEquals(200, $response->getStatusCode());
     }
 }

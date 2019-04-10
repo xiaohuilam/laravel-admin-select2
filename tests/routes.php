@@ -1,8 +1,12 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use LaravelAdminExt\Select2\Test\Controllers\TestController;
+use Illuminate\Routing\Router;
 
 Route::get('/ping', function () {
     return 'pong';
 });
-Route::get('/admin/test/{id}', TestController::class . '@edit');
+
+Route::group(['middleware' => ['web', 'admin'],], function (Router $router) {
+    $router->resource('/test', TestController::class);
+});

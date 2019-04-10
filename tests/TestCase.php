@@ -4,8 +4,6 @@ namespace LaravelAdminExt\Select2\Test;
 
 use Illuminate\Foundation\Application;
 use TestCase as BaseTestCase;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Database\Eloquent\Model;
@@ -58,6 +56,8 @@ abstract class TestCase extends BaseTestCase
         $this->app['config']->set('database.default', 'sqlite');
         $this->app['config']->set('database.connections.sqlite.database', ':memory:');
         $this->app['config']->set('database.connections.sqlite.prefix', 'test');
+        $this->app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
+        $this->app['config']->set('filesystems', require __DIR__ . '/../vendor/encore/laravel-admin/tests/config/filesystems.php');
 
         $this->artisan('vendor:publish', ['--provider' => 'Encore\Admin\AdminServiceProvider']);
 
@@ -70,6 +70,8 @@ abstract class TestCase extends BaseTestCase
         }
 
         require __DIR__ . '/routes.php';
+
+        require __DIR__ . '/../vendor/encore/laravel-admin/tests/seeds/factory.php';
     }
 
     public function tearDown()
