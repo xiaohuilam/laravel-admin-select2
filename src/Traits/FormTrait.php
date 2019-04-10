@@ -39,13 +39,13 @@ trait FormTrait
          * @var \Illuminate\Pagination\Paginator $result
          */
         $result = $query->paginate();
+        $list = $result->getCollection();
         if (is_callable($callback)) {
-            $list = $result->getCollection();
             foreach ($list as $index => $item) {
                 $list[$index]['text'] = $callback($item['text']);
             }
-            $result->setCollection($list);
         }
+        $list->each->setVisible(['id', 'text']);
 
         abort(response()->json($result));
     }
