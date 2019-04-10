@@ -9,15 +9,8 @@ use LaravelAdminExt\Select2\Traits\Select2Trait;
 class MultipleSelect extends BaseMultipleSelect
 {
     protected $withId = 0;
-    use Select2Trait, FormTrait;
+    protected $ajax_appends = [];
+    protected $view = 'laravel-admin-select2::multiple_select';
 
-    /**
-     * Get view of this field.
-     *
-     * @return string
-     */
-    public function getView()
-    {
-        return 'laravel-admin-select2::multipleselect';
-    }
+    use Select2Trait, FormTrait;
 }

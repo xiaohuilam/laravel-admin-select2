@@ -7,11 +7,12 @@ trait FormTrait
     /**
      * 注册搜索逻辑.
      *
+     * @param Closure $closure
      * @param Closure $callback
      *
      * @return \Illuminate\Http\JsonResponse|self
      */
-    public function match($callback)
+    public function match($closure, $callback = null)
     {
         if (false === $this->isSeaching()) {
             $this->ajax(request()->url().'?&'.http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
@@ -23,7 +24,7 @@ trait FormTrait
         /**
          * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
          */
-        $query = $callback($keyword);
+        $query = $closure($keyword);
         if (!$keyword) {
             $query->when(!strlen($keyword), function ($query) {
                 $value = request()->input('value');
@@ -34,7 +35,17 @@ trait FormTrait
                 $query = $query->where($this->form->model()->getKeyName(), '>', $value - 5);
             });
         }
+        /**
+         * @var \Illuminate\Pagination\Paginator $result
+         */
         $result = $query->paginate();
+        if (is_callable($callback)) {
+            $list = $result->getCollection();
+            foreach ($list as $index => $item) {
+                $list[$index]['text'] = $callback($item['text']);
+            }
+            $result->setCollection($list);
+        }
 
         abort(response()->json($result));
     }
@@ -42,11 +53,12 @@ trait FormTrait
     /**
      * 显示值逻辑.
      *
-     * @param Closure $callback
+     * @param Closure $closure
+     * @param Closure|null $callback
      *
      * @return string|self
      */
-    public function text($callback)
+    public function text($closure, $callback = null)
     {
         if (false === ($value = $this->isTextRetriving())) {
             return $this;
@@ -55,7 +67,12 @@ trait FormTrait
             $value = explode(',', $value);
         }
 
-        $result = $callback($value);
+        $result = $closure($value);
+        if (is_callable($callback)) {
+            foreach ($result as $k => $v) {
+                $result[$k] = $callback($v);
+            }
+        }
 
         abort(response()->json($result));
     }
@@ -80,6 +97,7 @@ trait FormTrait
 
         $configs = json_encode($configs);
         $configs = substr($configs, 1, strlen($configs) - 2);
+        $ajax_appends = json_encode($this->getAppendAjaxParam());
 
         $this->script = <<<EOT
 
@@ -94,6 +112,15 @@ $("{$this->getElementClassSelector()}").select2({
         page: params.page,
         search: '{$column}',
       };
+
+      var extra = {$ajax_appends};
+      if ('undefined' == typeof extra.length) {
+        var key;
+        for (key in extra) {
+            query[key] = eval(extra[key]);
+        }
+      }
+
       if (!query.keyword && {$this->withId}) {
         query.value = $("{$this->getElementClassSelector()}").attr('data-value');
       }
@@ -103,9 +130,9 @@ $("{$this->getElementClassSelector()}").select2({
       params.page = params.page || 1;
       return {
         results: $.map(data.data, function (d) {
-          d.id = d.$idField;
-          d.text = d.$textField;
-          return d;
+            d.id = d.$idField;
+            d.text = d.$textField.replace(new RegExp('\>', 'g'), '&gt;').replace(new RegExp('\<', 'g'), '&lt;');
+            return d;
         }),
         pagination: {
           more: data.next_page_url
@@ -124,13 +151,24 @@ $("{$this->getElementClassSelector()}").select2({
     if (!value.trim().length) {
         return callback([]);
     };
+
+    var query = {
+        value: value,
+        retrive: '{$column}',
+    };
+
+    var extra = {$ajax_appends};
+    if ('undefined' == typeof extra.length) {
+        var key;
+        for (key in extra) {
+            query[key] = eval(extra[key]);
+        }
+    }
+
     $.ajax({
       url: location.href,
       type: 'GET',
-      data: {
-        value: value,
-        retrive: '{$column}',
-      },
+      data: query,
       dataType: 'json',
       success: function (json) {
         var id, text, init = [], option;
@@ -143,7 +181,7 @@ $("{$this->getElementClassSelector()}").select2({
             option = $('<option/>');
             option.val(id);
             option.attr('selected', 'selected');
-            option.text(text);
+            option.text(text.replace(new RegExp('\>', 'g'), '&gt;').replace(new RegExp('\<', 'g'), '&lt;'));
             $("{$this->getElementClassSelector()}").append(option);
         }
         callback(init);
