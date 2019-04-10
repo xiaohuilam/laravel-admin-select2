@@ -1,12 +1,12 @@
-# Laravel-Admin select2 extension
+# Laravel-Admin select2 插件
 
-中文用户请阅读 [中文文档](README_cn.md).
+If you are non-Chinese user, there is [Document in English](README.md).
 
-A asynchronous extension to implements select2 to [laravel-admin](http://github.com/z-song/laravel-admin/), including single select/multiple select/morph select.
+一款异步的 select2 针对 [laravel-admin](http://github.com/z-song/laravel-admin/) 插件，适用于不定条数的模型中选择框场景，包括单选、多选。
 
-It will send ajax query if only you trigger list option in the form.
+在表单中尝试检索时，才会 ajax 去模型中查询选项，设计极度精简。
 
-*. extends from laravel-admin's original select, multipleSelect Fields, so it's compatible with laravel-admin select field.
+*. 扩展自 laravel-admin 的 select 和 multipleSelect 的Field类型，兼容原有方法。
 
 [![travis.svg](https://img.shields.io/travis/xiaohuilam/laravel-admin-select2/master.svg?style=flat-square)](https://travis-ci.org/xiaohuilam/laravel-admin-select2)
 [![styleci.svg](https://github.styleci.io/repos/178165826/shield?branch=master)](https://github.styleci.io/repos/178165826)
@@ -17,14 +17,14 @@ It will send ajax query if only you trigger list option in the form.
 [![install-count.svg](https://img.shields.io/packagist/dt/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://packagist.org/packages/xiaohuilam/laravel-admin-select2)
 [![license.svg](https://img.shields.io/github/license/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](LICENSE)
 
-## Installation
+## 安装
 ```bash
 composer require xiaohuilam/laravel-admin-select2
 ```
 
-## Usage
+## 使用
 
-**code**
+**代码**
 ```php
 <?php
 
@@ -44,10 +44,9 @@ class YourController extends Controller
     {
         $form = new Form(new UserResource);
 
-        //single select
         $form->select('user_id', 'User id')->match(function ($keyword) {
             /**
-             * @var \Illuminate\Database\Eloquent\Builder $query Query object，**remeber if does not contains `text` and `id` columns, write sql to AS!**
+             * @var \Illuminate\Database\Eloquent\Builder $query 查询对象，**切记如果数据模型没有text或id属性，记得as成text和id!**
              */
             $query = User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
             return $query;
@@ -55,7 +54,6 @@ class YourController extends Controller
             return User::where(app(User::class)->getKeyName(), $id)->pluck('name', 'id');
         });
 
-        //multiple select
         $form->multipleSelect('tags', 'Tags')->match(
             function ($keyword) {
                 return Tag::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
@@ -67,10 +65,9 @@ class YourController extends Controller
             }
         );
 
-        //morph select
         $form->morphSelect('commentable')->type([
-            Comment::class => 'Comment',
-            Answer::class => 'Answer',
+            Comment::class => '评论',
+            Answer::class => '答案',
         ]);
 
         $form->text('title', 'Title');
@@ -81,11 +78,17 @@ class YourController extends Controller
 }
 ```
 
-**Screenshot**
+**截图**
 
 ![screenshot.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/G5l12nD7D73p56dvXBm.png?x-oss-process=image/resize,l_500)
 
 
+## 赞助
+
+**微信**
+
+![donate.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/2GDNl84F6HW4PRGslxg.png?x-oss-process=image/resize,l_300)
+
 ## LICENSE
 
-Open source under [MIT](LICENSE) LICENSE.
+基于 [MIT](LICENSE) 协议开源.
