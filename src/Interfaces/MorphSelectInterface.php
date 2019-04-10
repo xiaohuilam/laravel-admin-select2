@@ -2,6 +2,9 @@
 
 namespace LaravelAdminExt\Select2\Interfaces;
 
+/**
+ * @method static string transformText($text) Transform the text
+ */
 interface MorphSelectInterface
 {
     /**

@@ -5,12 +5,16 @@ namespace LaravelAdminExt\Select2\Form\Field;
 use Encore\Admin\Form\Field;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
+use LaravelAdminExt\Select2\Interfaces\MorphSelectInterface;
 
 class MorphSelect extends Field
 {
     protected $display = false;
 
-    protected $type = [];
+    /**
+     * @var array
+     */
+    protected $class_map = [];
 
     /**
      * @var \Closure|\Callable
@@ -25,18 +29,24 @@ class MorphSelect extends Field
     /**
      * Field constructor.
      *
-     * @param array $type
+     * @param array $class_map
      */
-    public function type($type = [])
+    public function type($class_map = [])
     {
-        $this->type = $type;
+        $this->class_map = $class_map;
         return $this->__show();
     }
 
     protected function __show()
     {
-        if (!$this->type) {
+        if (!$this->class_map) {
             return $this;
+        }
+
+        foreach ($this->class_map as $class => $text) {
+            if (!app($class) instanceof MorphSelectInterface) {
+                abort(412, $class . ' must implements ' . MorphSelectInterface::class);
+            }
         }
 
         if (!$this->match || !$this->text) {
@@ -60,7 +70,7 @@ class MorphSelect extends Field
                 return $query->where(app($class)->getKeyName(), $id)->pluck('content', app($class)->getKeyName());
             };
         }
-        $type = $this->type;
+        $type = $this->class_map;
         $model = $this->form->model();
 
         /**
@@ -76,6 +86,14 @@ class MorphSelect extends Field
             ->options($type)
             ->setView('laravel-admin-select2::morph.type');
 
+        $callback = function ($text) {
+            $morph_type = request()->input('morph_type');
+            if (method_exists($morph_type, 'transformText')) {
+                $text = app($morph_type)::transformText($text);
+            }
+            return $text;
+        };
+
         $this->form
             ->select($relation->getForeignKeyName())
             ->setAppendAjaxParam('morph_type', $func)
@@ -89,9 +107,8 @@ class MorphSelect extends Field
                 if (!is_callable($closure)) {
                     return $this;
                 }
-
                 return $closure($keyword, $morph_type);
-            })
+            }, $callback)
             ->text(function ($value) use ($type) {
                 $morph_type = request()->input('morph_type');
                 if (!collect($type)->keys()->contains($morph_type)) {
@@ -102,9 +119,8 @@ class MorphSelect extends Field
                 if (!is_callable($closure)) {
                     return $this;
                 }
-
                 return $closure($value, $morph_type);
-            })
+            }, $callback)
             ->setView('laravel-admin-select2::morph.id');
 
         return $this;

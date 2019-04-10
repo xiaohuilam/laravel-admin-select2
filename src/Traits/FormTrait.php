@@ -7,11 +7,12 @@ trait FormTrait
     /**
      * 注册搜索逻辑.
      *
+     * @param Closure $closure
      * @param Closure $callback
      *
      * @return \Illuminate\Http\JsonResponse|self
      */
-    public function match($callback)
+    public function match($closure, $callback = null)
     {
         if (false === $this->isSeaching()) {
             $this->ajax(request()->url().'?&'.http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
@@ -23,7 +24,7 @@ trait FormTrait
         /**
          * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
          */
-        $query = $callback($keyword);
+        $query = $closure($keyword);
         if (!$keyword) {
             $query->when(!strlen($keyword), function ($query) {
                 $value = request()->input('value');
@@ -34,7 +35,17 @@ trait FormTrait
                 $query = $query->where($this->form->model()->getKeyName(), '>', $value - 5);
             });
         }
+        /**
+         * @var \Illuminate\Pagination\Paginator $result
+         */
         $result = $query->paginate();
+        if (is_callable($callback)) {
+            $list = $result->getCollection();
+            foreach ($list as $index => $item) {
+                $list[$index]['text'] = $callback($item['text']);
+            }
+            $result->setCollection($list);
+        }
 
         abort(response()->json($result));
     }
@@ -42,11 +53,12 @@ trait FormTrait
     /**
      * 显示值逻辑.
      *
-     * @param Closure $callback
+     * @param Closure $closure
+     * @param Closure|null $callback
      *
      * @return string|self
      */
-    public function text($callback)
+    public function text($closure, $callback = null)
     {
         if (false === ($value = $this->isTextRetriving())) {
             return $this;
@@ -55,7 +67,12 @@ trait FormTrait
             $value = explode(',', $value);
         }
 
-        $result = $callback($value);
+        $result = $closure($value);
+        if (is_callable($callback)) {
+            foreach ($result as $k => $v) {
+                $result[$k] = $callback($v);
+            }
+        }
 
         abort(response()->json($result));
     }
