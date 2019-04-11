@@ -62,6 +62,7 @@ abstract class AbstractTestCase extends BaseTestCase
         $this->app['config']->set('database.default', 'sqlite');
         $this->app['config']->set('database.connections.sqlite.database', ':memory:');
         $this->app['config']->set('database.connections.sqlite.prefix', 'test');
+        $this->app['config']->set('admin.database.connection', 'sqlite');
         $this->app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
         $this->app['config']->set('filesystems', require __DIR__ . '/../vendor/encore/laravel-admin/tests/config/filesystems.php');
 
