@@ -65,13 +65,13 @@ abstract class AbstractTestCase extends BaseTestCase
         $this->app['config']->set('admin.directory', app_path('Admin'));
         $this->app['config']->set('admin.database.connection', 'sqlite');
         $this->app['config']->set('admin.database.users_table', 'admin_users');
-        $this->app['config']->set('admin.database.users_model',  \Encore\Admin\Auth\Database\Administrator::class);
+        $this->app['config']->set('admin.database.users_model', \Encore\Admin\Auth\Database\Administrator::class);
         $this->app['config']->set('admin.database.roles_table', 'admin_roles');
-        $this->app['config']->set('admin.database.roles_model',  \Encore\Admin\Auth\Database\Role::class);
+        $this->app['config']->set('admin.database.roles_model', \Encore\Admin\Auth\Database\Role::class);
         $this->app['config']->set('admin.database.permissions_table', 'admin_permissions');
-        $this->app['config']->set('admin.database.permissions_model',  \Encore\Admin\Auth\Database\Permission::class);
+        $this->app['config']->set('admin.database.permissions_model', \Encore\Admin\Auth\Database\Permission::class);
         $this->app['config']->set('admin.database.menu_table', 'admin_menu');
-        $this->app['config']->set('admin.database.menu_model',  \Encore\Admin\Auth\Database\Menu::class);
+        $this->app['config']->set('admin.database.menu_model', \Encore\Admin\Auth\Database\Menu::class);
         $this->app['config']->set('admin.database.operation_log_table', 'admin_operation_log');
         $this->app['config']->set('admin.database.user_permissions_table', 'admin_user_permissions');
         $this->app['config']->set('admin.database.role_users_table', 'admin_role_users');

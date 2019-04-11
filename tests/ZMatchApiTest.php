@@ -110,6 +110,7 @@ class ZMatchApiTest extends AbstractTestCase
          */
         $data = $response->getOriginalContent();
         $this->assertInstanceOf(Collection::class, $data);
-        $this->assertEquals(['1' => 'test', ], $data->toArray());;
+        $this->assertEquals(['1' => 'test', ], $data->toArray());
+        ;
     }
 }
