@@ -51,6 +51,7 @@ class ZMatchApiTest extends AbstractTestCase
     {
         $url = $this->url;
         $response = $this->get($url)->response;
+        echo $response->getContent();
 
         $this->assertEquals(200, $response->getStatusCode());
 
