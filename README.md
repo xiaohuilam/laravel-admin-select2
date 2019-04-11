@@ -24,62 +24,9 @@ composer require xiaohuilam/laravel-admin-select2
 
 ## Usage
 
-**code**
-```php
-<?php
-
-namespace App\Admin\Controllers;
-
-use App\Http\Controllers\Controller;
-use Encore\Admin\Form;
-use App\Models\User;
-use App\Models\Answer;
-use App\Models\Comment;
-use App\Models\UserResource;
-use Illuminate\Support\Facades\DB;
-
-class YourController extends Controller
-{
-    protected function form()
-    {
-        $form = new Form(new UserResource);
-
-        //single select
-        $form->select('user_id', 'User id')->match(function ($keyword) {
-            /**
-             * @var \Illuminate\Database\Eloquent\Builder $query Query object，**remeber if does not contains `text` and `id` columns, write sql to AS!**
-             */
-            $query = User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
-            return $query;
-        })->text(function ($id) {
-            return User::where(app(User::class)->getKeyName(), $id)->pluck('name', 'id');
-        });
-
-        //multiple select
-        $form->multipleSelect('tags', 'Tags')->match(
-            function ($keyword) {
-                return Tag::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
-            }
-        )
-        ->text(
-            function ($id_list) {
-                return Tag::whereIn(app(Tag::class)->getKeyName(), $id_list)->pluck('name', 'id');
-            }
-        );
-
-        //morph select
-        $form->morphSelect('commentable')->type([
-            Comment::class => 'Comment',
-            Answer::class => 'Answer',
-        ]);
-
-        $form->text('title', 'Title');
-        $form->textarea('content', 'Content');
-
-        return $form;
-    }
-}
-```
+- [asynchronous single select (`select`) demo](tests/Controllers/AnswerController.php#L35-L59)
+- [asynchronous multiple select (`multipleSelect`) demo](tests/Controllers/QuestionController.php#L35-L59)
+- [asynchronous morph select (`morphSelect`) demo](tests/Controllers/CommentController.php#L34-L51)
 
 **Screenshot**
 

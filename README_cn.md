@@ -24,59 +24,9 @@ composer require xiaohuilam/laravel-admin-select2
 
 ## 使用
 
-**代码**
-```php
-<?php
-
-namespace App\Admin\Controllers;
-
-use App\Http\Controllers\Controller;
-use Encore\Admin\Form;
-use App\Models\User;
-use App\Models\Answer;
-use App\Models\Comment;
-use App\Models\UserResource;
-use Illuminate\Support\Facades\DB;
-
-class YourController extends Controller
-{
-    protected function form()
-    {
-        $form = new Form(new UserResource);
-
-        $form->select('user_id', 'User id')->match(function ($keyword) {
-            /**
-             * @var \Illuminate\Database\Eloquent\Builder $query 查询对象，**切记如果数据模型没有text或id属性，记得as成text和id!**
-             */
-            $query = User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
-            return $query;
-        })->text(function ($id) {
-            return User::where(app(User::class)->getKeyName(), $id)->pluck('name', 'id');
-        });
-
-        $form->multipleSelect('tags', 'Tags')->match(
-            function ($keyword) {
-                return Tag::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
-            }
-        )
-        ->text(
-            function ($id_list) {
-                return Tag::whereIn(app(Tag::class)->getKeyName(), $id_list)->pluck('name', 'id');
-            }
-        );
-
-        $form->morphSelect('commentable')->type([
-            Comment::class => '评论',
-            Answer::class => '答案',
-        ]);
-
-        $form->text('title', 'Title');
-        $form->textarea('content', 'Content');
-
-        return $form;
-    }
-}
-```
+- [异步单选 (`select`) 示例代码](tests/Controllers/AnswerController.php#L35-L59)
+- [异步多选 (`multipleSelect`) 示例代码](tests/Controllers/QuestionController.php#L35-L59)
+- [异步多态关联选 (`morphSelect`) 择示例代码](tests/Controllers/CommentController.php#L34-L51)
 
 **截图**
 
