@@ -61,7 +61,6 @@ class ZMatchApiTest extends AbstractTestCase
         $this->seeInElement('[name="commentable_type"]', Answer::class . '" selected');
 
         $this->seeInElement('.col-sm-6', 'name="commentable_id" data-value="1"');
-        //echo $response;
     }
 
     /**

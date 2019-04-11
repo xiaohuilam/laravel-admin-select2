@@ -5,9 +5,9 @@ namespace LaravelAdminExt\Select2;
 use Encore\Admin\Admin;
 use Encore\Admin\Form;
 use Illuminate\Support\ServiceProvider;
+use LaravelAdminExt\Select2\Form\Field\Select;
 use LaravelAdminExt\Select2\Form\Field\MorphSelect;
 use LaravelAdminExt\Select2\Form\Field\MultipleSelect;
-use LaravelAdminExt\Select2\Form\Field\Select;
 
 class Select2ServiceProvider extends ServiceProvider
 {
