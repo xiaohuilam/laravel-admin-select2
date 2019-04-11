@@ -95,7 +95,7 @@ class MorphSelect extends Field
         };
 
         $this->form
-            ->select($relation->getForeignKeyName())
+            ->select(method_exists($relation, 'getForeignKeyName') ? $relation->getForeignKeyName() : ($this->column() . '_id'))
             ->setAppendAjaxParam('morph_type', $func)
             ->match(function ($keyword) use ($type) {
                 $morph_type = request()->input('morph_type');

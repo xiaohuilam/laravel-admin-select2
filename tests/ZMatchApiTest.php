@@ -51,7 +51,6 @@ class ZMatchApiTest extends AbstractTestCase
     {
         $url = $this->url;
         $response = $this->get($url)->response;
-        echo $response->getContent();
 
         $this->assertEquals(200, $response->getStatusCode());
 
@@ -62,7 +61,6 @@ class ZMatchApiTest extends AbstractTestCase
         $this->seeInElement('[name="commentable_type"]', Answer::class . '" selected');
 
         $this->seeInElement('.col-sm-6', 'name="commentable_id" data-value="1"');
-        //echo $response;
     }
 
     /**
