@@ -2,11 +2,10 @@
 
 namespace LaravelAdminExt\Select2\Test;
 
-use LaravelAdminExt\Select2\Test\Models\Answer;
-use LaravelAdminExt\Select2\Test\Models\Question;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use LaravelAdminExt\Select2\Test\Models\Tag;
+use LaravelAdminExt\Select2\Test\Models\Question;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MultipleSelectApiTest extends AbstractTestCase
 {

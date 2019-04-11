@@ -82,7 +82,7 @@ return [
     'database' => [
 
         // Database connection for following tables.
-        'connection' => '',
+        'connection' => 'sqlite',
 
         // User tables and model.
         'users_table' => 'admin_users',
