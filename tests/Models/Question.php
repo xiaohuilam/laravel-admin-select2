@@ -3,19 +3,17 @@
 namespace LaravelAdminExt\Select2\Test\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LaravelAdminExt\Select2\Interfaces\MorphSelectInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * 答案
  *
  * @property integer    $id
- * @property integer    $question_id 问题ID
- * @property string     $content     回答内容
+ * @property string     $title     Qestion title
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property \Illuminate\Support\Carbon $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Answer[] $answers
  * @method static bool|null forceDelete()
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Answer newModelQuery()
@@ -32,24 +30,21 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Answer withoutTrashed()
  * @mixin \Eloquent
  */
-class Answer extends Model implements MorphSelectInterface
+class Question extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'content',
+        'title',
     ];
 
-    public function question()
-    {
-        return $this->belongsTo(Question::class);
-    }
-
     /**
-     * {@inheritDoc}
+     * Tags
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public static function getTextColumn()
+    public function tags()
     {
-        return 'content';
+        return $this->morphToMany(Tag::class, 'taggable', 'taggable');
     }
 }

@@ -9,7 +9,10 @@ use Encore\Admin\Controllers\HasResourceActions;
 use LaravelAdminExt\Select2\Test\Models\Comment;
 use LaravelAdminExt\Select2\Test\Models\Answer;
 
-class TestController extends Controller
+/**
+ * A demo for morphSelect, see it in the `form()` method
+ */
+class CommentController extends Controller
 {
     use HasResourceActions;
 
@@ -37,16 +40,10 @@ class TestController extends Controller
     {
         $form = new Form(new Comment);
 
-        $form->morphSelect('commentable')->type([
-            Comment::class => '评论',
-            Answer::class => '答案',
+        $form->morphSelect('commentable', 'Comment on')->type([
+            Comment::class => 'Comment',
+            Answer::class => 'Answer',
         ]);
-
-        // $form->select('user_id', 'User')->match(function ($keyword) {
-        //     return User::where('name', 'LIKE', '%' . $keyword . '%')->select([DB::raw('name AS text'), 'id',]);
-        // })->text(function ($id) {
-        //     return User::where('id', $id)->pluck('name', 'id');
-        // });
 
         $form->textarea('content', 'Content');
 

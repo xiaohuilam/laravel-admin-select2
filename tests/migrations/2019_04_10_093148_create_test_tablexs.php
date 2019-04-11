@@ -12,10 +12,18 @@ class CreateTestTablexs extends Migration
      */
     public function up()
     {
+        Schema::create('questions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+
+            $table->timestampsTz();
+            $table->softDeletesTz();
+        });
+
         Schema::create('answers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('question_id')->index();
             $table->text('content');
-            $table->integer('user_id');
 
             $table->timestampsTz();
             $table->softDeletesTz();
@@ -24,11 +32,25 @@ class CreateTestTablexs extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->text('content');
-            $table->integer('user_id');
             $table->morphs('commentable');
 
             $table->timestampsTz();
             $table->softDeletesTz();
+        });
+
+        Schema::create('taggable', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('tag_id')->index();
+            $table->morphs('taggable');
+
+            $table->timestampsTz();
+        });
+
+        Schema::create('tags', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+
+            $table->timestampsTz();
         });
     }
 
@@ -39,7 +61,10 @@ class CreateTestTablexs extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('questions');
         Schema::dropIfExists('answers');
         Schema::dropIfExists('comments');
+        Schema::dropIfExists('taggable');
+        Schema::dropIfExists('tags');
     }
 }
