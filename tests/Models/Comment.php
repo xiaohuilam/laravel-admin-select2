@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  * 讨论
  *
  * @property integer                  $id
- * @property integer                  $user_id
  * @property string                   $commentable_type 墨菲类
  * @property string                   $commentable_id   墨菲ID
  * @property string                   $content          评论内容

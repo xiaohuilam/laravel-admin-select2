@@ -6,26 +6,30 @@ use LaravelAdminExt\Select2\Test\Models\Answer;
 use LaravelAdminExt\Select2\Test\Models\Question;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use LaravelAdminExt\Select2\Test\Models\Tag;
 
-class SelectApiTest extends AbstractTestCase
+class MultipleSelectApiTest extends AbstractTestCase
 {
     use Menu;
-    protected $url = '/answer/55/edit';
+    protected $url = '/question/66/edit';
 
     public function setUp()
     {
         $this->__init();
 
         $question = new Question();
-        $question->id = 101;
+        $question->id = 66;
         $question->title = 'test';
         $question->save();
 
-        $answer = new Answer();
-        $answer->id = 55;
-        $answer->content = mt_rand(0, 100);
-        $answer->question()->associate($question);
-        $answer->save();
+        $tags = collect([]);
+        for ($i = 1; $i < 6; $i++) {
+            $tag = new Tag();
+            $tag->name = 'tag ' . $i;
+            $tags->push($tag);
+        }
+
+        $question->tags()->saveMany($tags);
     }
 
     /**
@@ -41,7 +45,7 @@ class SelectApiTest extends AbstractTestCase
         // check is permission okay
         $this->assertFalse(str_contains($response, 'Permission Denied'));
 
-        $this->seeInElement('.col-sm-8', 'name="question_id" data-value="101"');
+        $this->seeInElement('.col-sm-8', 'data-value="1,2,3,4,5"');
     }
 
     /**
@@ -50,8 +54,8 @@ class SelectApiTest extends AbstractTestCase
     public function testMatch()
     {
         $url = $this->url . '?' . http_build_query([
-            'search' => 'question_id',
-            'value' => 101,
+            'search' => 'tags',
+            'keyword' => 'tag',
         ]);
 
         $response = $this->get($url)->response;
@@ -66,8 +70,8 @@ class SelectApiTest extends AbstractTestCase
 
         $list = $data->getCollection();
 
-        $this->assertEquals('test', $list->pluck('text')->implode(''));
-        $this->assertEquals('101', $list->pluck('id')->implode(''));
+        $this->assertEquals('tag 1,tag 2,tag 3,tag 4,tag 5', $list->pluck('text')->implode(','));
+        $this->assertEquals('1,2,3,4,5', $list->pluck('id')->implode(','));
     }
 
     /**
@@ -76,8 +80,8 @@ class SelectApiTest extends AbstractTestCase
     public function testText()
     {
         $url = $this->url . '?' . http_build_query([
-            'retrive' => 'question_id',
-            'value' => 101,
+            'retrive' => 'tags',
+            'value' => 1,
         ]);
 
         $response = $this->get($url)->response;
@@ -89,6 +93,6 @@ class SelectApiTest extends AbstractTestCase
          */
         $data = $response->getOriginalContent();
         $this->assertInstanceOf(Collection::class, $data);
-        $this->assertEquals(['101' => 'test',], $data->toArray());
+        $this->assertEquals(['1' => 'tag 1',], $data->toArray());
     }
 }
