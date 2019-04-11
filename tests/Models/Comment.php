@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon                   $updated_at
  * @property Carbon                   $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property-read int $comments_cout
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()
