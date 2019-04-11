@@ -2,18 +2,33 @@
 
 namespace LaravelAdminExt\Select2\Test;
 
-use Encore\Admin\Layout\Content;
-use Illuminate\Support\Facades\DB;
 use LaravelAdminExt\Select2\Test\Models\Comment;
 use LaravelAdminExt\Select2\Test\Models\Answer;
-use Encore\Admin\Auth\Database\Administrator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
-class ZMatchApiTest extends TestCase
+class ZMatchApiTest extends AbstractTestCase
 {
+    use Menu;
+    protected $url = '/test/100/edit';
+
     public function setUp()
     {
-        parent::setUp();
-        $this->be(Administrator::first(), 'admin');
+        $this->__init();
+
+        $answer = new Answer();
+        $answer->content = 'test';
+        $answer->user_id = mt_rand(1, 10);
+        $answer->save();
+
+        $id = 100;
+
+        $comment = new Comment();
+        $comment->id = $id;
+        $comment->content = mt_rand(0, 100);
+        $comment->user_id = mt_rand(1, 10);
+        $comment->commentable()->associate($answer);
+        $comment->save();
     }
 
     /**
@@ -30,31 +45,72 @@ class ZMatchApiTest extends TestCase
     }
 
     /**
-     * 测试表单
-     *
-     * @return void
+     * 断言表单
      */
     public function testForm()
     {
-        $answer = new Answer();
-        $answer->content = 'test';
-        $answer->user_id = mt_rand(1, 10);
-        $answer->save();
-
-        $id = mt_rand(1, 1000);
-
-        $comment = new Comment();
-        $comment->id = $id;
-        $comment->content = mt_rand(0, 100);
-        $comment->user_id = mt_rand(1, 10);
-        $comment->commentable()->associate($answer);
-        $comment->save();
-
-        $url = '/test/' . $id . '/edit';
+        $url = $this->url;
         $response = $this->get($url)->response;
 
-        //$res = $response->getContent();
-        //echo $res;
         $this->assertEquals(200, $response->getStatusCode());
+
+        // check is permission okay
+        $this->assertFalse(str_contains($response, 'Permission Denied'));
+
+        $this->seeInElement('[name="commentable_type"]', Comment::class);
+        $this->seeInElement('[name="commentable_type"]', Answer::class . '" selected');
+
+        $this->seeInElement('.col-sm-6', 'name="commentable_id" data-value="1"');
+        //echo $response;
+    }
+
+    /**
+     * 断言match api
+     */
+    public function testMatch()
+    {
+        $url = $this->url . '?' . http_build_query([
+            'search' => 'commentable_id',
+            'morph_type' => Answer::class,
+            'value' => 1,
+        ]);
+
+        $response = $this->get($url)->response;
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        /**
+         * @var LengthAwarePaginator $data
+         */
+        $data = $response->getOriginalContent();
+        $this->assertInstanceOf(LengthAwarePaginator::class, $data);
+
+        $list = $data->getCollection();
+
+        $this->assertEquals('test', $list->pluck('text')->implode(''));
+        $this->assertEquals('1', $list->pluck('id')->implode(''));
+    }
+
+    /**
+     * 断言text api
+     */
+    public function testText()
+    {
+        $url = $this->url . '?' . http_build_query([
+            'retrive' => 'commentable_id',
+            'morph_type' => Answer::class,
+            'value' => 1,
+        ]);
+
+        $response = $this->get($url)->response;
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        /**
+         * @var Collection $data
+         */
+        $data = $response->getOriginalContent();
+        $this->assertInstanceOf(Collection::class, $data);
+        $this->assertEquals(['1' => 'test', ], $data->toArray());;
     }
 }

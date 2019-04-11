@@ -3,11 +3,10 @@
 namespace LaravelAdminExt\Select2\Test;
 
 use Encore\Admin\Auth\Database\Administrator;
-use Encore\Admin\Auth\Database\Menu;
 
-class MenuTest extends TestCase
+trait Menu
 {
-    public function setUp()
+    protected function __init()
     {
         parent::setUp();
         $this->be(Administrator::first(), 'admin');
@@ -15,7 +14,7 @@ class MenuTest extends TestCase
 
     public function testAddMenu()
     {
-        $item = ['parent_id' => '0', 'title' => 'Test', 'uri' => 'test'];
+        $item = ['parent_id' => '0', 'title' => 'Test', 'uri' => 'test/*'];
         $this->visit('admin/auth/menu')
             ->seePageIs('admin/auth/menu')
             ->submitForm('Submit', $item)

@@ -7,6 +7,6 @@ Route::get('/ping', function () {
     return 'pong';
 });
 
-Route::group(['middleware' => ['web', 'admin'],], function (Router $router) {
+Route::group(['middleware' => ['web', 'admin', 'admin.permission:allow,administrator'],], function (Router $router) {
     $router->resource('/test', TestController::class);
 });

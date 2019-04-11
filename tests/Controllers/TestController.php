@@ -22,7 +22,6 @@ class TestController extends Controller
      */
     public function edit($id, Content $content)
     {
-        return $content;
         return $content
             ->header('Edit')
             ->description('description')

@@ -7,10 +7,12 @@ use TestCase as BaseTestCase;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Database\Eloquent\Model;
+use Encore\Admin\AdminServiceProvider;
+use LaravelAdminExt\Select2\Select2ServiceProvider;
 
 require __DIR__ . '/../vendor/encore/laravel-admin/tests/TestCase.php';
 
-abstract class TestCase extends BaseTestCase
+abstract class AbstractTestCase extends BaseTestCase
 {
     /**
      * Boots the application.
@@ -19,6 +21,9 @@ abstract class TestCase extends BaseTestCase
      */
     public function createApplication()
     {
+        /**
+         * @var \Illuminate\Foundation\Application $app
+         */
         $app = require __DIR__ . '/../vendor/laravel/laravel/bootstrap/app.php';
 
         $app->booting(function () {
@@ -28,7 +33,8 @@ abstract class TestCase extends BaseTestCase
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
-        $app->register('Encore\Admin\AdminServiceProvider');
+        $app->register(AdminServiceProvider::class);
+        $app->register(Select2ServiceProvider::class);
 
         return $app;
     }
@@ -51,7 +57,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->setUpHasRun = true;
 
-        $this->app['config']->set('app.env', 'test');
+        $this->app['config']->set('app.env', 'testing');
         $this->app['config']->set('app.debug', true);
         $this->app['config']->set('database.default', 'sqlite');
         $this->app['config']->set('database.connections.sqlite.database', ':memory:');
@@ -59,7 +65,7 @@ abstract class TestCase extends BaseTestCase
         $this->app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
         $this->app['config']->set('filesystems', require __DIR__ . '/../vendor/encore/laravel-admin/tests/config/filesystems.php');
 
-        $this->artisan('vendor:publish', ['--provider' => 'Encore\Admin\AdminServiceProvider']);
+        $this->artisan('vendor:publish', ['--provider' => AdminServiceProvider::class,]);
 
         $this->artisan('admin:install');
 
