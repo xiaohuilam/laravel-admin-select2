@@ -7,7 +7,7 @@ use LaravelAdminExt\Select2\Test\Models\Answer;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
-class ZMatchApiTest extends AbstractTestCase
+class SelectApiTest extends AbstractTestCase
 {
     use Menu;
     protected $url = '/test/100/edit';
@@ -111,6 +111,5 @@ class ZMatchApiTest extends AbstractTestCase
         $data = $response->getOriginalContent();
         $this->assertInstanceOf(Collection::class, $data);
         $this->assertEquals(['1' => 'test', ], $data->toArray());
-        ;
     }
 }
