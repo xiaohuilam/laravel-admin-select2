@@ -2,6 +2,8 @@
 
 namespace LaravelAdminExt\Select2\Traits;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 trait FormTrait
 {
     /**
@@ -47,7 +49,7 @@ trait FormTrait
         }
         $list->each->setVisible(['id', 'text']);
 
-        abort(response()->json($result));
+        throw new HttpResponseException(response()->json($result));
     }
 
     /**
@@ -74,7 +76,7 @@ trait FormTrait
             }
         }
 
-        abort(response()->json($result));
+        throw new HttpResponseException(response()->json($result));
     }
 
     /**
