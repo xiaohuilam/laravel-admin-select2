@@ -52,7 +52,7 @@ class QuestionController extends Controller
                 ->latest();
         })->text(function ($id) {
             // return type is `{id1: text1, id2: text2...}
-            return Tag::whereIn('id', [$id])->pluck('name', 'id');
+            return Tag::whereIn('id', $id)->pluck('name', 'id');
         });
 
         return $form;
