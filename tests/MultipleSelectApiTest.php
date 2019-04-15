@@ -69,8 +69,8 @@ class MultipleSelectApiTest extends AbstractTestCase
 
         $list = $data->getCollection();
 
-        $this->assertEquals('tag 1,tag 2,tag 3,tag 4,tag 5', $list->pluck('text')->implode(','));
-        $this->assertEquals('1,2,3,4,5', $list->pluck('id')->implode(','));
+        $this->assertEquals('tag 1,tag 2,tag 3,tag 4,tag 5', $list->pluck('text')->sort()->implode(','));
+        $this->assertEquals('1,2,3,4,5', $list->pluck('id')->sort()->implode(','));
     }
 
     /**
