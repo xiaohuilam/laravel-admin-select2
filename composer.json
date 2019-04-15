@@ -11,12 +11,10 @@
         "encore/laravel-admin": "~1.6.0"
     },
     "require-dev": {
-        "phpunit/phpunit": ">=6.0",
+        "phpunit/phpunit": "<8.0",
         "laravel/laravel": ">=5.5",
-        "symfony/css-selector": "~3.1",
         "fzaninotto/faker": "~1.4",
-        "laravel/browser-kit-testing": "^2.0",
-        "sebastian/comparator": "v2.1.2"
+        "laravel/browser-kit-testing": "<=v4.2.1"
     },
     "autoload": {
         "psr-4": {
