@@ -28,10 +28,8 @@ composer require xiaohuilam/laravel-admin-select2
 - [asynchronous multiple select (`multipleSelect`) demo](tests/Controllers/QuestionController.php#L35-L59)
 - [asynchronous morph select (`morphSelect`) demo](tests/Controllers/CommentController.php#L34-L51)
 
-**Screenshot**
-
-![screenshot.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/G5l12nD7D73p56dvXBm.png?x-oss-process=image/resize,l_500)
-
+## Donation
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/laravel)
 
 ## LICENSE
 

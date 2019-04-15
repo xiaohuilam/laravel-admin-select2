@@ -28,11 +28,6 @@ composer require xiaohuilam/laravel-admin-select2
 - [异步多选 (`multipleSelect`) 示例代码](tests/Controllers/QuestionController.php#L35-L59)
 - [异步多态关联选 (`morphSelect`) 择示例代码](tests/Controllers/CommentController.php#L34-L51)
 
-**截图**
-
-![screenshot.png](https://wantu-kw0-asset007-hz.oss-cn-hangzhou.aliyuncs.com/G5l12nD7D73p56dvXBm.png?x-oss-process=image/resize,l_500)
-
-
 ## 赞助
 
 **微信**
