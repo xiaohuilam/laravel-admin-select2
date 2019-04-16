@@ -25,7 +25,6 @@ class Select2ServiceProvider extends ServiceProvider
         }
 
         Admin::booting(function () {
-            Form::registerBuiltinFields();
             Form::forget(['select', 'multipleSelect']);
             Form::extend('select', Select::class);
             Form::extend('multipleSelect', MultipleSelect::class);
