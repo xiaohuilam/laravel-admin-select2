@@ -12,4 +12,4 @@ script:
 cache:
    timeout: 86400
    directories:
-      - $HOME/.composer/cache/files
+      - $HOME/.composer/cache
