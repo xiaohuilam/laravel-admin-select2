@@ -24,7 +24,10 @@
     "autoload-dev": {
         "psr-4": {
             "LaravelAdminExt\\Select2\\Test\\": "tests/"
-        }
+        },
+        "files": [
+            "vendor/encore/laravel-admin/tests/TestCase.php"
+        ]
     },
     "extra": {
         "laravel": {

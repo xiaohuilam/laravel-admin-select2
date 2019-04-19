@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Encore\Admin\AdminServiceProvider;
 use LaravelAdminExt\Select2\Select2ServiceProvider;
 
-require __DIR__ . '/../vendor/encore/laravel-admin/tests/TestCase.php';
-
 abstract class AbstractTestCase extends BaseTestCase
 {
     /**
