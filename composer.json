@@ -14,7 +14,8 @@
         "phpunit/phpunit": "<8.0",
         "laravel/laravel": ">=5.5",
         "fzaninotto/faker": "~1.4",
-        "laravel/browser-kit-testing": "<=v4.2.1"
+        "laravel/browser-kit-testing": "<=v4.2.1",
+        "squizlabs/php_codesniffer": "3.*"
     },
     "autoload": {
         "psr-4": {
