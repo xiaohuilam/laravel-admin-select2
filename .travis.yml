@@ -5,10 +5,10 @@ php:
    - '7.2.8'
    - '7.3.1'
 install:
-   - composer install -vvv
+   - composer install --prefer-dist -vvv
 script:
-   - ./vendor/squizlabs/php_codesniffer/bin/phpcs
-   - ./vendor/phpunit/phpunit/phpunit
+   - ./vendor/bin/phpcs
+   - ./vendor/bin/phpunit
 cache:
    timeout: 86400
    directories:
