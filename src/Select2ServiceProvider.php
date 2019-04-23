@@ -8,6 +8,8 @@ use Illuminate\Support\ServiceProvider;
 use LaravelAdminExt\Select2\Form\Field\Select;
 use LaravelAdminExt\Select2\Form\Field\MorphSelect;
 use LaravelAdminExt\Select2\Form\Field\MultipleSelect;
+use LaravelAdminExt\Select2\Grid\Displayers\Editable;
+use Encore\Admin\Grid\Column;
 
 class Select2ServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,8 @@ class Select2ServiceProvider extends ServiceProvider
             Form::extend('select', Select::class);
             Form::extend('multipleSelect', MultipleSelect::class);
             Form::extend('morphSelect', MorphSelect::class);
+
+            Column::extend('editable', Editable::class);
         });
     }
 }
