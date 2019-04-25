@@ -7,8 +7,6 @@ use Encore\Admin\Facades\Admin;
 
 class Editable extends BaseEditable
 {
-    protected $asynchronous = false;
-
     /**
      * {@inheritdoc}
      */
@@ -18,24 +16,25 @@ class Editable extends BaseEditable
         $text = data_get($parameters, 1);
 
         if ($text && is_callable($text)) {
-            $this->asynchronous = true;
+            $this->options['asynchronous'] = true;
         } else {
+            $this->options['asynchronous'] = false;
             return parent::select($options);
         }
     }
 
     protected function buildEditableOptions(array $arguments = [])
     {
-        if (!$this->asynchronous) {
+        if (!data_get($this->options, 'asynchronous', false)) {
             $this->type = array_get($arguments, 0, 'text');
             call_user_func_array([$this, $this->type], array_slice($arguments, 1));
             return;
         }
     }
 
-    public function _display()
+    public function display()
     {
-        if (!$this->asynchronous) {
+        if (!data_get($this->options, 'asynchronous', false)) {
             return parent::display();
         }
 
