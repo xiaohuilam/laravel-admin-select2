@@ -28,6 +28,13 @@ class MorphSelect extends Field
     protected $text = null;
 
     /**
+     * Column name.
+     *
+     * @var string
+     */
+    protected $column = '';
+
+    /**
      * Field constructor.
      *
      * @param array $class_map
