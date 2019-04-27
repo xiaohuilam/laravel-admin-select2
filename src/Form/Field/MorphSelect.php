@@ -18,12 +18,12 @@ class MorphSelect extends Field
     protected $class_map = [];
 
     /**
-     * @var \Closure|\Callable
+     * @var \Closure|null
      */
     protected $match = null;
 
     /**
-     * @var \Closure|\Callable
+     * @var \Closure|null
      */
     protected $text = null;
 
@@ -45,7 +45,11 @@ class MorphSelect extends Field
         }
 
         foreach ($this->class_map as $class => $text) {
-            if (!app($class) instanceof MorphSelectInterface) {
+            /**
+             * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
+             */
+            $morph_class = app($class);
+            if (!$morph_class instanceof MorphSelectInterface) {
                 abort(412, $class . ' must implements ' . MorphSelectInterface::class);
             }
         }
@@ -53,22 +57,32 @@ class MorphSelect extends Field
         if (!$this->match || !$this->text) {
             $this->match = function ($keyword, $class) {
                 /**
+                 * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
+                 */
+                $morph_class = app($class);
+
+                /**
                  * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $query
                  */
                 $query = $class;
                 return $query::where($query::getTextColumn(), 'LIKE', DB::raw('"%' . $keyword . '%"'))
-                    ->select([DB::raw($query::getTextColumn() . ' AS text'), DB::raw(app($class)->getKeyName() . ' AS id')]);
+                    ->select([DB::raw($query::getTextColumn() . ' AS text'), DB::raw($morph_class->getKeyName() . ' AS id')]);
             };
             $this->text = function ($id, $class) {
+                /**
+                 * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
+                 */
+                $morph_class = app($class);
+
                 /**
                  * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\SoftDeletes $query
                  */
                 $query = $class;
-                if (method_exists(app($class), 'trashed')) {
+                if (method_exists($morph_class, 'trashed')) {
                     $query = $query::withTrashed();
                 }
 
-                return $query->where(app($class)->getKeyName(), $id)->pluck('content', app($class)->getKeyName());
+                return $query->where($morph_class->getKeyName(), $id)->pluck('content', $morph_class->getKeyName());
             };
         }
         $type = $this->class_map;
@@ -77,7 +91,8 @@ class MorphSelect extends Field
         /**
          * @var \Illuminate\Database\Eloquent\Relations\MorphTo $relation
          */
-        if (!method_exists($model, $this->column) || !($relation = $model->{$this->column}()) || !$relation instanceof Relation) {
+        $relation = $model->{$this->column}();
+        if (!method_exists($model, $this->column) || !$relation || !$relation instanceof Relation) {
             abort(412, 'Sorry, there\'s no relation named '.$this->column);
         }
         $func = "$('.{$relation->getMorphType()}').val()";
