@@ -92,13 +92,15 @@ class MorphSelect extends Field
          * @var \Illuminate\Database\Eloquent\Relations\MorphTo $relation
          */
         $relation = $model->{$this->column}();
+        $type_column = $relation->getMorphType();
+
         if (!method_exists($model, $this->column) || !$relation || !$relation instanceof Relation) {
             abort(412, 'Sorry, there\'s no relation named '.$this->column);
         }
-        $func = "$('.{$relation->getMorphType()}').val()";
+        $func = "$('.{$type_column}').val()";
 
         $this->form
-            ->select($relation->getMorphType(), Str::studly($this->column()))
+            ->select($type_column, Str::studly($this->column()))
             ->options($type)
             ->setView('laravel-admin-select2::morph.type');
 
