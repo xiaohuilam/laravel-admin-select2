@@ -10,6 +10,7 @@ It will send ajax query if only you trigger list option in the form.
 
 [![travis.svg](https://img.shields.io/travis/xiaohuilam/laravel-admin-select2/master.svg?style=flat-square)](https://travis-ci.org/xiaohuilam/laravel-admin-select2)
 [![styleci.svg](https://github.styleci.io/repos/178165826/shield?branch=master)](https://github.styleci.io/repos/178165826)
+[![code-quality.svg](https://img.shields.io/scrutinizer/g/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://scrutinizer-ci.com/g/xiaohuilam/laravel-admin-select2/)
 [![version.svg](https://img.shields.io/packagist/vpre/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://packagist.org/packages/xiaohuilam/laravel-admin-select2)
 [![issues-open.svg](https://img.shields.io/github/issues/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://github.com/xiaohuilam/laravel-admin-select2/issues)
 [![last-commit.svg](https://img.shields.io/github/last-commit/xiaohuilam/laravel-admin-select2.svg?style=flat-square)](https://github.com/xiaohuilam/laravel-admin-select2/commits/)
