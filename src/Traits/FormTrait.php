@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 trait FormTrait
 {
     /**
-     * 注册搜索逻辑.
+     * Register the search callback.
      *
      * @param Closure $closure
      * @param Closure $callback
@@ -53,7 +53,7 @@ trait FormTrait
     }
 
     /**
-     * 显示值逻辑.
+     * Register the retrive callback.
      *
      * @param Closure $closure
      * @param Closure|null $callback
