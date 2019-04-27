@@ -104,6 +104,10 @@ class MorphSelect extends Field
          * @var \Illuminate\Database\Eloquent\Relations\MorphTo $relation
          */
         $relation = $model->{$this->column}();
+
+        /**
+         * @var string $type_column
+         */
         $type_column = $relation->getMorphType();
 
         if (!method_exists($model, $this->column) || !$relation || !$relation instanceof Relation) {
