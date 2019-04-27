@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use LaravelAdminExt\Select2\Interfaces\MorphSelectInterface;
 
+/**
+ * MorphSelect field
+ *
+ * @method string column()
+ */
 class MorphSelect extends Field
 {
     protected $display = false;
