@@ -121,9 +121,16 @@ class MorphSelect extends Field
             ->setView('laravel-admin-select2::morph.type');
 
         $callback = function ($text) {
+            /**
+             * @var string $morph_type
+             */
             $morph_type = request()->input('morph_type');
             if (method_exists($morph_type, 'transformText')) {
-                $text = app($morph_type)::transformText($text);
+                /**
+                 * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_object
+                 */
+                $morph_object = app($morph_type);
+                $text = $morph_object::transformText($text);
             }
             return $text;
         };
@@ -132,6 +139,9 @@ class MorphSelect extends Field
             ->select(method_exists($relation, 'getForeignKeyName') ? $relation->getForeignKeyName() : ($this->column() . '_id'))
             ->setAppendAjaxParam('morph_type', $func)
             ->match(function ($keyword) use ($type) {
+                /**
+                 * @var string $morph_type
+                 */
                 $morph_type = request()->input('morph_type');
                 if (!collect($type)->keys()->contains($morph_type)) {
                     abort(412, 'Sorry, '.$morph_type.' is not allowed!');
@@ -144,6 +154,9 @@ class MorphSelect extends Field
                 return $closure($keyword, $morph_type);
             }, $callback)
             ->text(function ($value) use ($type) {
+                /**
+                 * @var string $morph_type
+                 */
                 $morph_type = request()->input('morph_type');
                 if (!collect($type)->keys()->contains($morph_type)) {
                     abort(412, 'Sorry, '.$morph_type.' is not allowed!');
