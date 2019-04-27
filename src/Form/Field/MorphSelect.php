@@ -2,9 +2,10 @@
 
 namespace LaravelAdminExt\Select2\Form\Field;
 
+use Illuminate\Support\Str;
 use Encore\Admin\Form\Field;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use LaravelAdminExt\Select2\Interfaces\MorphSelectInterface;
 
 class MorphSelect extends Field
@@ -82,7 +83,7 @@ class MorphSelect extends Field
         $func = "$('.{$relation->getMorphType()}').val()";
 
         $this->form
-            ->select($relation->getMorphType(), studly_case($this->column()))
+            ->select($relation->getMorphType(), Str::studly($this->column()))
             ->options($type)
             ->setView('laravel-admin-select2::morph.type');
 
