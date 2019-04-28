@@ -76,8 +76,8 @@ class MorphSelect extends Field
                 /**
                  * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $query
                  */
-                $query = $class;
-                return $query::where($query::getTextColumn(), 'LIKE', DB::raw('"%' . $keyword . '%"'))
+                $query = app($class);
+                return $query->where($query::getTextColumn(), 'LIKE', DB::raw('"%' . $keyword . '%"'))
                     ->select([DB::raw($query::getTextColumn() . ' AS text'), DB::raw($morph_class->getKeyName() . ' AS id')]);
             };
             $this->text = function ($id, $class) {
@@ -89,9 +89,9 @@ class MorphSelect extends Field
                 /**
                  * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\SoftDeletes $query
                  */
-                $query = $class;
+                $query = app($class);
                 if (method_exists($morph_class, 'trashed')) {
-                    $query = $query::withTrashed();
+                    $query = $query->withTrashed();
                 }
 
                 return $query->where($morph_class->getKeyName(), $id)->pluck('content', $morph_class->getKeyName());
