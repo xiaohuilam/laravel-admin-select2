@@ -58,7 +58,7 @@ class MorphSelect extends Field
 
         foreach ($this->class_map as $class => $text) {
             /**
-             * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
+             * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
              */
             $morph_class = app($class);
             if (!$morph_class instanceof MorphSelectInterface) {
@@ -69,12 +69,12 @@ class MorphSelect extends Field
         if (!$this->match || !$this->text) {
             $this->match = function ($keyword, $class) {
                 /**
-                 * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
+                 * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
                  */
                 $morph_class = app($class);
 
                 /**
-                 * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $query
+                 * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $query
                  */
                 $query = $class;
                 return $query::where($query::getTextColumn(), 'LIKE', DB::raw('"%' . $keyword . '%"'))
@@ -82,12 +82,12 @@ class MorphSelect extends Field
             };
             $this->text = function ($id, $class) {
                 /**
-                 * @var \Illuminate\Database\Eloquent\Model|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
+                 * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $morph_class
                  */
                 $morph_class = app($class);
 
                 /**
-                 * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\SoftDeletes $query
+                 * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\SoftDeletes $query
                  */
                 $query = $class;
                 if (method_exists($morph_class, 'trashed')) {
