@@ -10,7 +10,7 @@
 
 </div>
 
-## About 
+## 关于 
 
 If you are non-Chinese user, there is [Document in English](README.md).
 
