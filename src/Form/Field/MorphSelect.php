@@ -52,7 +52,7 @@ class MorphSelect extends Field
 
     protected function __show()
     {
-        if (!$this->class_map) {
+        if (empty($this->class_map)) {
             return $this;
         }
 
