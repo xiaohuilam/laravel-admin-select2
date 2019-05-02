@@ -17,7 +17,7 @@ trait FormTrait
     public function match($closure, $callback = null)
     {
         if (false === $this->isSeaching()) {
-            $this->ajax(request()->url().'?&'.http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
+            $this->ajax(request()->url() . '?&' . http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
 
             return $this;
         }

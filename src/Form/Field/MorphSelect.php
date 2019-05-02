@@ -111,7 +111,7 @@ class MorphSelect extends Field
         $type_column = $relation->getMorphType();
 
         if (!method_exists($model, $this->column) || !$relation || !$relation instanceof Relation) {
-            abort(412, 'Sorry, there\'s no relation named '.$this->column);
+            abort(412, 'Sorry, there\'s no relation named ' . $this->column);
         }
         $func = "$('.{$type_column}').val()";
 
@@ -144,7 +144,7 @@ class MorphSelect extends Field
                  */
                 $morph_type = request()->input('morph_type');
                 if (!collect($type)->keys()->contains($morph_type)) {
-                    abort(412, 'Sorry, '.$morph_type.' is not allowed!');
+                    abort(412, 'Sorry, ' . $morph_type . ' is not allowed!');
                 }
 
                 $closure = $this->match;
@@ -159,7 +159,7 @@ class MorphSelect extends Field
                  */
                 $morph_type = request()->input('morph_type');
                 if (!collect($type)->keys()->contains($morph_type)) {
-                    abort(412, 'Sorry, '.$morph_type.' is not allowed!');
+                    abort(412, 'Sorry, ' . $morph_type . ' is not allowed!');
                 }
 
                 $closure = $this->text;
