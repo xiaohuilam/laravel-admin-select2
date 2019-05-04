@@ -10,7 +10,7 @@
 
 </div>
 
-## 关于 
+## 关于
 
 If you are non-Chinese user, there is [Document in English](README.md).
 
@@ -30,6 +30,23 @@ composer require xiaohuilam/laravel-admin-select2
 - [异步单选 (`select`) 示例代码](tests/Controllers/AnswerController.php#L35-L59)
 - [异步多选 (`multipleSelect`) 示例代码](tests/Controllers/QuestionController.php#L35-L59)
 - [异步多态关联选 (`morphSelect`) 择示例代码](tests/Controllers/CommentController.php#L34-L51)
+
+## 文件结构
+```
+src
+├── Form
+│   └── Field
+│       ├── Select.php           # `LaravelAdminExt\Select2\Form\Field\Select` 单选类代码
+│       ├── MultipleSelect.php   # `LaravelAdminExt\Select2\Form\Field\MultipleSelect` 多选类代码
+│       └── MorphSelect.php      # `LaravelAdminExt\Select2\Form\Field\MorphSelect` 模态多选类代码
+├── Interfaces
+│   └── MorphSelectInterface.php # `LaravelAdminExt\Select2\Interfaces\MorphSelectInterface` 模态多选接口. 在被 morphSelect 的使用的模型中必须 implments.
+├── Select2.php                  # laravel-admin 扩展标识文件
+├── Select2ServiceProvider.php   # laravel 服务提供者文件
+└── Traits                       # 一些在 select 和 multipleSelect 被复用的方法
+    ├── FormTrait.php
+    └── Select2Trait.php
+```
 
 ## 赞助
 
