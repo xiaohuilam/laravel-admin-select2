@@ -9,8 +9,8 @@ trait FormTrait
     /**
      * Register the search callback.
      *
-     * @param Closure $closure
-     * @param Closure $callback
+     * @param \Closure $closure
+     * @param \Closure $callback
      *
      * @return static
      * @throws HttpResponseException
@@ -56,8 +56,8 @@ trait FormTrait
     /**
      * Register the retrive callback.
      *
-     * @param Closure $closure
-     * @param Closure|null $callback
+     * @param \Closure $closure
+     * @param \Closure|null $callback
      *
      * @return static
      * @throws HttpResponseException
