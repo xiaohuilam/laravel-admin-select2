@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 trait FormTrait
 {
     /**
-     * 注册搜索逻辑.
+     * Register the search callback.
      *
      * @param Closure $closure
      * @param Closure $callback
@@ -17,7 +17,7 @@ trait FormTrait
     public function match($closure, $callback = null)
     {
         if (false === $this->isSeaching()) {
-            $this->ajax(request()->url().'?&'.http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
+            $this->ajax(request()->url() . '?&' . http_build_query(collect(request()->all())->merge(['search' => $this->column()])->toArray()));
 
             return $this;
         }
@@ -53,7 +53,7 @@ trait FormTrait
     }
 
     /**
-     * 显示值逻辑.
+     * Register the retrive callback.
      *
      * @param Closure $closure
      * @param Closure|null $callback

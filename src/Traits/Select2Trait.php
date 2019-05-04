@@ -5,7 +5,7 @@ namespace LaravelAdminExt\Select2\Traits;
 trait Select2Trait
 {
     /**
-     * 是否为搜索请求，若是，返回搜索的关键词.
+     * Is the request for searching?
      *
      * @return bool|string
      */
@@ -23,7 +23,7 @@ trait Select2Trait
     }
 
     /**
-     * 是否为获取显示值请求，若是，返回显示值
+     * Is the request for retriving?
      *
      * @return bool|string
      */
@@ -41,7 +41,7 @@ trait Select2Trait
     }
 
     /**
-     * 设置额外ajax参数.
+     * Set extra ajax parameters.
      *
      * @param string $key
      * @param string $statement
@@ -56,7 +56,7 @@ trait Select2Trait
     }
 
     /**
-     * 返回额外ajax参数.
+     * Returns extra ajax parameters.
      *
      * @return array
      */
