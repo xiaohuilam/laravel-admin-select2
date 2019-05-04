@@ -77,8 +77,14 @@ class MorphSelect extends Field
                  * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\LaravelAdminExt\Select2\Interfaces\MorphSelectInterface $query
                  */
                 $query = app($class);
-                return $query->where($query::getTextColumn(), 'LIKE', DB::raw('"%' . $keyword . '%"'))
-                    ->select([DB::raw($query::getTextColumn() . ' AS text'), DB::raw($morph_class->getKeyName() . ' AS id')]);
+
+                /**
+                 * @var string $column
+                 */
+                $column = $query::getTextColumn();
+
+                return $query->where($column, 'LIKE', DB::raw('"%' . $keyword . '%"'))
+                    ->select([DB::raw($column . ' AS text'), DB::raw($morph_class->getKeyName() . ' AS id')]);
             };
             $this->text = function ($id, $class) {
                 /**
@@ -94,7 +100,11 @@ class MorphSelect extends Field
                     $query = $query->withTrashed();
                 }
 
-                return $query->where($morph_class->getKeyName(), $id)->pluck('content', $morph_class->getKeyName());
+                /**
+                 * @var string $id_name
+                 */
+                $id_name = $morph_class->getKeyName();
+                return $query->where($id_name, $id)->pluck('content', $id_name);
             };
         }
         $type = $this->class_map;
@@ -135,9 +145,16 @@ class MorphSelect extends Field
             return $text;
         };
 
-        $this->form
-            ->select(method_exists($relation, 'getForeignKeyName') ? $relation->getForeignKeyName() : ($this->column() . '_id'))
-            ->setAppendAjaxParam('morph_type', $func)
+        /**
+         * @var string $id_name
+         */
+        $id_name = method_exists($relation, 'getForeignKeyName') ? $relation->getForeignKeyName() : ($this->column() . '_id');
+
+        /**
+         * @var \LaravelAdminExt\Select2\Form\Field\Select $field
+         */
+        $field = $this->form->select($id_name);
+        $field->setAppendAjaxParam('morph_type', $func)
             ->match(function ($keyword) use ($type) {
                 /**
                  * @var string $morph_type

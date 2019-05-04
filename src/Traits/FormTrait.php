@@ -12,7 +12,8 @@ trait FormTrait
      * @param Closure $closure
      * @param Closure $callback
      *
-     * @return \Illuminate\Http\JsonResponse|self
+     * @return static
+     * @throws HttpResponseException
      */
     public function match($closure, $callback = null)
     {
@@ -58,7 +59,8 @@ trait FormTrait
      * @param Closure $closure
      * @param Closure|null $callback
      *
-     * @return string|self
+     * @return static
+     * @throws HttpResponseException
      */
     public function text($closure, $callback = null)
     {
