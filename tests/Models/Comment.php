@@ -2,9 +2,9 @@
 
 namespace LaravelAdminExt\Select2\Test\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaravelAdminExt\Select2\Interfaces\MorphSelectInterface;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * 讨论
@@ -29,7 +29,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
- * @mixin \Eloquent
  */
 class Comment extends Model implements MorphSelectInterface
 {

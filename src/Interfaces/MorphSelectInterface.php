@@ -4,6 +4,9 @@ namespace LaravelAdminExt\Select2\Interfaces;
 
 /**
  * @method static string transformText($text) Transform the text
+ * @method \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method string getKeyName()
+ * @method mixed select($param)
  */
 interface MorphSelectInterface
 {

@@ -4,15 +4,19 @@ namespace LaravelAdminExt\Select2\Traits;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+/**
+ * @property string $script
+ */
 trait FormTrait
 {
     /**
      * Register the search callback.
      *
-     * @param Closure $closure
-     * @param Closure $callback
+     * @param \Closure $closure
+     * @param \Closure $callback
      *
-     * @return \Illuminate\Http\JsonResponse|self
+     * @return static
+     * @throws HttpResponseException
      */
     public function match($closure, $callback = null)
     {
@@ -24,7 +28,7 @@ trait FormTrait
 
         $keyword = request()->input('keyword');
         /**
-         * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
+         * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
          */
         $query = $closure($keyword);
         if (!$keyword) {
@@ -32,22 +36,30 @@ trait FormTrait
                 $value = request()->input('value');
 
                 /**
-                 * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
+                 * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
                  */
-                $query = $query->where($this->form->model()->getKeyName(), '>', $value - 5);
+                return $query->where($this->form->model()->getKeyName(), '>', $value - 5);
             });
         }
         /**
          * @var \Illuminate\Pagination\Paginator $result
          */
         $result = $query->paginate();
+        /**
+         * @var \Illuminate\Database\Eloquent\Model[]|\Illuminate\Support\Collection $list
+         */
         $list = $result->getCollection();
         if (is_callable($callback)) {
             foreach ($list as $index => $item) {
                 $list[$index]['text'] = $callback($item['text']);
             }
         }
-        $list->each->setVisible(['id', 'text']);
+
+        /**
+         * @var \Illuminate\Database\Eloquent\Model $each
+         */
+        $each = $list->each;
+        $each->setVisible(['id', 'text']);
 
         throw new HttpResponseException(response()->json($result));
     }
@@ -55,10 +67,11 @@ trait FormTrait
     /**
      * Register the retrive callback.
      *
-     * @param Closure $closure
-     * @param Closure|null $callback
+     * @param \Closure $closure
+     * @param \Closure|null $callback
      *
-     * @return string|self
+     * @return static
+     * @throws HttpResponseException
      */
     public function text($closure, $callback = null)
     {

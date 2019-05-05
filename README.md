@@ -31,6 +31,23 @@ composer require xiaohuilam/laravel-admin-select2
 - [asynchronous multiple select (`multipleSelect`) demo](tests/Controllers/QuestionController.php#L35-L59)
 - [asynchronous morph select (`morphSelect`) demo](tests/Controllers/CommentController.php#L34-L51)
 
+## Structure
+```
+src
+├── Form
+│   └── Field
+│       ├── Select.php           # `LaravelAdminExt\Select2\Form\Field\Select` single select class
+│       ├── MultipleSelect.php   # `LaravelAdminExt\Select2\Form\Field\MultipleSelect` multiple select class
+│       └── MorphSelect.php      # `LaravelAdminExt\Select2\Form\Field\MorphSelect` morph select class
+├── Interfaces
+│   └── MorphSelectInterface.php # `LaravelAdminExt\Select2\Interfaces\MorphSelectInterface` morph select interface. must implement in every morphed models.
+├── Select2.php                  # laravel-admin extension identify file
+├── Select2ServiceProvider.php   # laravel service provider
+└── Traits                       # some multiplexing methods
+    ├── FormTrait.php
+    └── Select2Trait.php
+```
+
 ## Donation
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/laravel)
 

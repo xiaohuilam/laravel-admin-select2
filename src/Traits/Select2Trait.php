@@ -2,6 +2,9 @@
 
 namespace LaravelAdminExt\Select2\Traits;
 
+/**
+ * @property array $ajax_appends
+ */
 trait Select2Trait
 {
     /**

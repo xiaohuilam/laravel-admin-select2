@@ -26,7 +26,7 @@ class Select2ServiceProvider extends ServiceProvider
             $this->loadViewsFrom($views, 'laravel-admin-select2');
         }
 
-        Admin::booting(function () {
+        Admin::booted(function () {
             Form::forget(['select', 'multipleSelect']);
             Form::extend('select', Select::class);
             Form::extend('multipleSelect', MultipleSelect::class);

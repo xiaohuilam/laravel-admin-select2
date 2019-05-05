@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereId($value)
- * @mixin \Eloquent
  */
 class Tag extends Model
 {
