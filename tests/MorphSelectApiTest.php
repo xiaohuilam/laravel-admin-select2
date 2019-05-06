@@ -6,6 +6,7 @@ use LaravelAdminExt\Select2\Test\Models\Comment;
 use LaravelAdminExt\Select2\Test\Models\Answer;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class MorphSelectApiTest extends AbstractTestCase
 {
@@ -41,7 +42,7 @@ class MorphSelectApiTest extends AbstractTestCase
         $this->assertEquals(200, $response->getStatusCode());
 
         // check is permission okay
-        $this->assertFalse(str_contains($response, 'Permission Denied'));
+        $this->assertFalse(Str::contains($response, 'Permission Denied'));
 
         $this->seeInElement('[name="commentable_type"]', Comment::class);
         $this->seeInElement('[name="commentable_type"]', Answer::class . '" selected');

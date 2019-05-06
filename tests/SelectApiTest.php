@@ -6,6 +6,7 @@ use LaravelAdminExt\Select2\Test\Models\Answer;
 use LaravelAdminExt\Select2\Test\Models\Question;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class SelectApiTest extends AbstractTestCase
 {
@@ -39,7 +40,7 @@ class SelectApiTest extends AbstractTestCase
         $this->assertEquals(200, $response->getStatusCode());
 
         // check is permission okay
-        $this->assertFalse(str_contains($response, 'Permission Denied'));
+        $this->assertFalse(Str::contains($response, 'Permission Denied'));
 
         $this->seeInElement('.col-sm-8', 'name="question_id" data-value="101"');
     }

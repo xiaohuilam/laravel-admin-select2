@@ -6,6 +6,7 @@ use LaravelAdminExt\Select2\Test\Models\Tag;
 use LaravelAdminExt\Select2\Test\Models\Question;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class MultipleSelectApiTest extends AbstractTestCase
 {
@@ -42,7 +43,7 @@ class MultipleSelectApiTest extends AbstractTestCase
         $this->assertEquals(200, $response->getStatusCode());
 
         // check is permission okay
-        $this->assertFalse(str_contains($response, 'Permission Denied'));
+        $this->assertFalse(Str::contains($response, 'Permission Denied'));
 
         $this->seeInElement('.col-sm-8', 'data-value="1,2,3,4,5"');
     }
