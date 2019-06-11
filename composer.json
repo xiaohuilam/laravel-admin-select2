@@ -8,7 +8,7 @@
     "readme": "https://github.com/xiaohuilam/laravel-admin-select2#laravel-admin-select2-extension",
     "keywords": ["laravel admin", "laravel admin extension", "select2", "morph select"],
     "require": {
-        "encore/laravel-admin": "~1.6.0"
+        "encore/laravel-admin": ">=1.6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "<8.0",
