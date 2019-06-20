@@ -50,7 +50,10 @@ src
 
 ## Donation
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/laravel)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fxiaohuilam%2Flaravel-admin-select2.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fxiaohuilam%2Flaravel-admin-select2?ref=badge_shield)
 
 ## LICENSE
 
 Open source under [MIT](LICENSE) LICENSE.
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fxiaohuilam%2Flaravel-admin-select2.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fxiaohuilam%2Flaravel-admin-select2?ref=badge_large)
