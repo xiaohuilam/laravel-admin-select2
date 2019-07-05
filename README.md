@@ -1,4 +1,4 @@
-<h1 align="center">Laravel-Admin select2 asynchronous extension</h1>
+<h1 align="center">𝑳𝒂𝒓𝒂𝒗𝒆𝒍-𝑨𝒅𝒎𝒊𝒏 𝒔𝒆𝒍𝒆𝒄𝒕2 𝒂𝒔𝒚𝒏𝒄𝒉𝒓𝒐𝒏𝒐𝒖𝒔 𝒆𝒙𝒕𝒆𝒏𝒔𝒊𝒐𝒏</h1>
 
 <div align="center">
 
