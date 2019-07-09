@@ -1,4 +1,4 @@
-<h1 align="center">Laravel-Admin select2 异步插件</h1>
+<h1 align="center">𝑳𝒂𝒓𝒂𝒗𝒆𝒍-𝑨𝒅𝒎𝒊𝒏 𝒔𝒆𝒍𝒆𝒄𝒕2 异步插件</h1>
 
 <div align="center">
 
