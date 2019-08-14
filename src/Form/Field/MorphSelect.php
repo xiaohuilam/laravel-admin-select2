@@ -104,7 +104,13 @@ class MorphSelect extends Field
                  * @var string $id_name
                  */
                 $id_name = $morph_class->getKeyName();
-                return $query->where($id_name, $id)->pluck('content', $id_name);
+
+                /**
+                 * @var string $column
+                 */
+                $column = $morph_class->getTextColumn();
+
+                return $query->where($id_name, $id)->pluck($column, $id_name);
             };
         }
         $type = $this->class_map;
