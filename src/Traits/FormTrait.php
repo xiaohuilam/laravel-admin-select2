@@ -38,7 +38,7 @@ trait FormTrait
                 /**
                  * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
                  */
-                return $query->where($this->form->model()->getKeyName(), '>', $value - 5);
+                return $query->where($query->getModel()->getKeyName(), '>', $value - 5);
             });
         }
         /**
