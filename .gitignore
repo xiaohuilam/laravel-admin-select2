@@ -5,3 +5,4 @@ composer.lock
 *.db
 *.log
 *.txt
+.phpunit.result.cache

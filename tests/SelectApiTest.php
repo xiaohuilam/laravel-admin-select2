@@ -2,18 +2,18 @@
 
 namespace LaravelAdminExt\Select2\Test;
 
-use LaravelAdminExt\Select2\Test\Models\Answer;
-use LaravelAdminExt\Select2\Test\Models\Question;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use LaravelAdminExt\Select2\Test\Models\Answer;
+use LaravelAdminExt\Select2\Test\Models\Question;
 
 class SelectApiTest extends AbstractTestCase
 {
     use Menu;
     protected $url = '/answer/55/edit';
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->__init();
 
@@ -35,12 +35,15 @@ class SelectApiTest extends AbstractTestCase
     public function testForm()
     {
         $url = $this->url;
+        /**
+         * @var \Illuminate\Http\Response $response
+         */
         $response = $this->get($url)->response;
 
         $this->assertEquals(200, $response->getStatusCode());
 
         // check is permission okay
-        $this->assertFalse(Str::contains($response, 'Permission Denied'));
+        $this->assertFalse(Str::contains($response->getContent(), 'Permission Denied'));
 
         $this->seeInElement('.col-sm-8', 'name="question_id" data-value="101"');
     }

@@ -2,17 +2,21 @@
 
 namespace LaravelAdminExt\Select2\Test;
 
-use Illuminate\Foundation\Application;
-use TestCase as BaseTestCase;
+use Encore\Admin\AdminServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Database\Eloquent\Model;
-use Encore\Admin\AdminServiceProvider;
 use LaravelAdminExt\Select2\Select2ServiceProvider;
+use TestCase as BaseTestCase;
 
 abstract class AbstractTestCase extends BaseTestCase
 {
+    /**
+     * @var \Illuminate\Foundation\Application|null
+     */
+    protected $app;
+
     /**
      * Boots the application.
      *
@@ -38,7 +42,7 @@ abstract class AbstractTestCase extends BaseTestCase
         return $app;
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!$this->app) {
             $this->refreshApplication();
@@ -85,7 +89,7 @@ abstract class AbstractTestCase extends BaseTestCase
         require __DIR__ . '/../vendor/encore/laravel-admin/tests/seeds/factory.php';
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         (new \CreateTestTables())->down();
         (new \CreateAdminTables())->down();
