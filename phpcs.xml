@@ -98,6 +98,7 @@
     <exclude-pattern>vendor/</exclude-pattern>
     <exclude-pattern>node_modules/</exclude-pattern>
     <exclude-pattern>resources/views/</exclude-pattern>
+    <exclude-pattern>resources/js/</exclude-pattern>
     <exclude-pattern>tests/migrations/</exclude-pattern>
     <arg name="report" value="full"/>
     <arg name="colors"/>

@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 
 class Select2Filter extends AbstractDisplayer
 {
-
     /**
      * Display method.
      *
@@ -59,5 +58,4 @@ class Select2Filter extends AbstractDisplayer
             ? $request->url().$question.http_build_query($query)
             : $request->fullUrl();
     }
-
 }
