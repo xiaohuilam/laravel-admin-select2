@@ -36,7 +36,7 @@ class Select2Filter extends AbstractDisplayer
         $this->column->addHeader(view('laravel-admin-select2::filter_select', ['column' => $column, 'uri' => $this->getFormAction($column),]));
         $this->column->has_filter_select = true;
 
-        Admin::js(assets('vendor/laravel-admin-ext/laravel-admin-select2/filter-select.js'), true, true);
+        Admin::js(asset('vendor/laravel-admin-ext/laravel-admin-select2/filter-select.js'), true, true);
         Admin::script('window.select2_filter("' . $this->column->getName() . '")', true);
         return $this->row->{$column};
     }
