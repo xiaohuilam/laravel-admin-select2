@@ -17,15 +17,13 @@ class Select2Filter extends AbstractDisplayer
      */
     public function display()
     {
-        Admin::js(assets('vendor/laravel-admin-ext/laravel-admin-select2/filter-select.js'), true, true);
-        Admin::script('window.select2_filter("' . $this->column->getName() . '")', true);
+        $arguments = func_get_args();
+        $column = $this->column->getName();
 
         if (isset($this->column->has_filter_select)) {
-            return '';
+            return $this->row->{$column};
         }
-        $arguments = func_get_args();
         $options = Arr::first($arguments);
-        $column = $this->column->getName();
 
         if (request()->get('_search_' . $column)) {
             $query = call_user_func($options, request()->input('keyword'));
@@ -35,9 +33,12 @@ class Select2Filter extends AbstractDisplayer
             //throw new HttpResponseException(response()->json($query->paginate()));
         }
 
-        $this->column->addHeader(view('laravel-admin-select2::filter_select', ['uri' => $this->getFormAction($column),]));
+        $this->column->addHeader(view('laravel-admin-select2::filter_select', ['column' => $column, 'uri' => $this->getFormAction($column),]));
         $this->column->has_filter_select = true;
-        return '';
+
+        Admin::js(assets('vendor/laravel-admin-ext/laravel-admin-select2/filter-select.js'), true, true);
+        Admin::script('window.select2_filter("' . $this->column->getName() . '")', true);
+        return $this->row->{$column};
     }
 
     /**
