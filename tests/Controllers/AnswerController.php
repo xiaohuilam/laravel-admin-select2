@@ -3,9 +3,11 @@
 namespace LaravelAdminExt\Select2\Test\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Encore\Admin\Form;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Controllers\HasResourceActions;
+use Encore\Admin\Grid;
 use LaravelAdminExt\Select2\Test\Models\Answer;
 use LaravelAdminExt\Select2\Test\Models\Question;
 use Illuminate\Support\Facades\DB;
@@ -56,5 +58,21 @@ class AnswerController extends Controller
         $form->textarea('content', 'Content');
 
         return $form;
+    }
+
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid()
+    {
+        $grid = new Grid(new Answer);
+
+        $grid->column('user_id', __('User'))->sortable()->filterSelect2(function ($keyword) {
+            return User::where('name', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                ->select([DB::raw('email AS text'), 'id',]);
+        });
     }
 }

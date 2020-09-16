@@ -25,11 +25,17 @@ It will send ajax query if only you trigger list option in the form.
 composer require xiaohuilam/laravel-admin-select2
 ```
 
+publish assets
+```bash
+php artisan vendor:publish --tag=laravel-admin-select2
+```
+
 ## Usage
 
 - [asynchronous single select (`select`) demo](tests/Controllers/AnswerController.php#L35-L59)
 - [asynchronous multiple select (`multipleSelect`) demo](tests/Controllers/QuestionController.php#L35-L59)
 - [asynchronous morph select (`morphSelect`) demo](tests/Controllers/CommentController.php#L34-L51)
+- [asynchronous select filter (`filterSelect2`) demo](tests/Controllers/AnswerController.php#L68-L77)
 
 ## Structure
 ```

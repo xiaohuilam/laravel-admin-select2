@@ -25,11 +25,17 @@ If you are non-Chinese user, there is [Document in English](README.md).
 composer require xiaohuilam/laravel-admin-select2
 ```
 
+发布资源文件
+```bash
+php artisan vendor:publish --tag=laravel-admin-select2
+```
+
 ## 使用
 
 - [异步单选 (`select`) 示例代码](tests/Controllers/AnswerController.php#L35-L59)
 - [异步多选 (`multipleSelect`) 示例代码](tests/Controllers/QuestionController.php#L35-L59)
 - [异步多态关联选 (`morphSelect`) 择示例代码](tests/Controllers/CommentController.php#L34-L51)
+- [异步列筛选（`filterSelect2`）示例代码](tests/Controllers/AnswerController.php#L68-L77)
 
 ## 文件结构
 ```
