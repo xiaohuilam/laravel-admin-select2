@@ -4,9 +4,9 @@ php:
    - '7.1'
    - '7.2'
    - '7.3'
-   - '7.4snapshot'
+   - '7.4'
 install:
-   - composer install -vvv
+   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist --no-interaction -vvv
 script:
    - ./vendor/bin/phpcs
    - ./vendor/bin/phpunit
