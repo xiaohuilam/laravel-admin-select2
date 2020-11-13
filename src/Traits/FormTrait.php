@@ -38,7 +38,12 @@ trait FormTrait
                 /**
                  * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
                  */
-                return $query->where($query->getModel()->getKeyName(), '>', $value - 5);
+                return $query->when(is_numeric($value), function ($query) use ($value) {
+                    /**
+                     * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
+                     */
+                    return $query->where($query->getModel()->getKeyName(), '>', $value - 5);
+                });
             });
         }
         /**
