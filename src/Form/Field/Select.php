@@ -13,4 +13,16 @@ class Select extends BaseSelect
     protected $view = 'laravel-admin-select2::select';
 
     use Select2Trait, FormTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function render()
+    {
+        if ('laravel-admin-select2::morph.type' === $this->view) {
+            return str_replace('<!--type-->' . PHP_EOL . '</div>', '', parent::render());
+        }
+
+        return parent::render();
+    }
 }
