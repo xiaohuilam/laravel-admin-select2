@@ -26,3 +26,4 @@
         @include('admin::form.help-block')
 
     </div>
+<!--type-->
