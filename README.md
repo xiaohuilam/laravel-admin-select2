@@ -10,6 +10,8 @@
 
 </div>
 
+*. Deprecated, please use [dcat/laravel-admin](https://github.com/jqhph/dcat-admin) instead!
+
 ## About
 
 中文用户请阅读 [中文文档](README_cn.md).
